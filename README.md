@@ -1,4 +1,4 @@
 # sweetvillas
 RESTFUL API Service with JPA 
 
-More info up to come
+In sql/sweetvillas.sql you can find the ddl to create the database. It will be regularly updated.  
