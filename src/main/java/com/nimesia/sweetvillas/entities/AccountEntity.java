@@ -1,6 +1,6 @@
 package com.nimesia.sweetvillas.entities;
 
-import com.nimesia.sweetvillas.converter.AttributeEncryptor;
+import com.nimesia.sweetvillas.encryptors.AttributeEncryptor;
 
 import javax.persistence.*;
 

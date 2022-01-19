@@ -1,4 +1,4 @@
-package com.nimesia.sweetvillas.converter;
+package com.nimesia.sweetvillas.encryptors;
 
 import org.springframework.stereotype.Component;
 
