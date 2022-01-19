@@ -8,7 +8,6 @@ public class ApiError implements Serializable {
     private String propertyPath;
     private String invalidValue;
 
-
     public void setInvalidValue(String invalidValue) {
         this.invalidValue = invalidValue;
     }
