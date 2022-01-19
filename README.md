@@ -13,4 +13,5 @@ What we've achieved so far:
   
  What we want to achieve:
   -  DTO - Entity conversion through a better design pattern;
+  -  Better complex queries management (no to string concatenation, yes to query builder);
   -  Whatever comes to our mind :D 
