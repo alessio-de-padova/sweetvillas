@@ -1,5 +1,6 @@
 package com.nimesia.sweetvillas.encryptors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
@@ -15,13 +16,12 @@ import java.util.Base64;
 public class AttributeEncryptor implements AttributeConverter<String, String> {
 
     private static final String AES = "AES";
-    private static final String SECRET = "!z%C*F-JaNdRgUkXp2asdrtgfs5vx/Kb";
 
     private final Key key;
     private final Cipher cipher;
 
-    public AttributeEncryptor() throws Exception {
-        key = new SecretKeySpec(SECRET.getBytes(), AES);
+    public AttributeEncryptor( @Value("${datasource.encryptkey}") String secret) throws Exception {
+        key = new SecretKeySpec(secret.getBytes(), AES);
         cipher = Cipher.getInstance(AES);
     }
 
