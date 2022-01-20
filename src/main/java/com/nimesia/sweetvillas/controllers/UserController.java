@@ -10,7 +10,6 @@ import com.nimesia.sweetvillas.services.UserService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +26,6 @@ class UserController extends AbsController{
     private AccountService accountSvc;
     @Autowired
     private UserMapper mapper;
-
-
 
     @GetMapping("/users/get")
     public UserEntity get(
