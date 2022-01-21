@@ -16,17 +16,14 @@ public class AccountService extends AbsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AccountEntity get(Integer id)  {
-
-        return repository.findById(id);
-
-    }
+    public AccountEntity get(Integer id)  {return repository.findById(id);}
 
     public Serializable update(AccountEntity account) {
         account
             .setPwd(
                     passwordEncoder.encode(account.getPwd())
             );
+
         return repository.save(account);
     }
 

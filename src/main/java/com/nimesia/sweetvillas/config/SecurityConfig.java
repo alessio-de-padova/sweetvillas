@@ -40,9 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(
-                        new AuthorizationFilter( authenticationManager())
-                )
+                .addFilter( new AuthorizationFilter( authenticationManager()) )
                 .authorizeRequests()
                 .antMatchers("/public/**")
                 .permitAll()
