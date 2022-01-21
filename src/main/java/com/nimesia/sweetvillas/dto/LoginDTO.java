@@ -6,6 +6,9 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * LoginDTO
+ */
 public class LoginDTO  {
     @NotEmpty @Email(message = "EmailInvalid")
     private @Getter @Setter String email;

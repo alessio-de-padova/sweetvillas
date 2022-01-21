@@ -1,18 +1,19 @@
 package com.nimesia.sweetvillas.controllers;
 
-import com.nimesia.sweetvillas.dto.AccountDTO;
+import com.nimesia.sweetvillas.bean.ApiError;
 import com.nimesia.sweetvillas.dto.LoginDTO;
 import com.nimesia.sweetvillas.dto.LoginResultDTO;
-import com.nimesia.sweetvillas.entities.AccountEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
-import com.nimesia.sweetvillas.mappers.AccountMapper;
+import com.nimesia.sweetvillas.interceptors.MainInterceptor;
 import com.nimesia.sweetvillas.mappers.UserMapper;
 import com.nimesia.sweetvillas.providers.JwtProvider;
-import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 /**
- * Used only as test.
+ * AuthController
  */
 @RestController
 class AuthController {
@@ -29,10 +30,12 @@ class AuthController {
     private UserService userService;
     @Autowired
     private UserMapper mapper;
+    private Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     /**
      * Login request
      *
-     * @param LoginDTO login
+     * @param login
      */
     @PostMapping("/public/auth/login")
     public ResponseEntity login(
@@ -42,7 +45,11 @@ class AuthController {
         UserEntity user = userService.getByEmailAndPassword(login.getEmail(), login.getPwd());
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            ApiError error = new ApiError();
+            error.setType("InvalidLogin");
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(error);
         }
 
         String jwt = JwtProvider.createJwt(user.getId());

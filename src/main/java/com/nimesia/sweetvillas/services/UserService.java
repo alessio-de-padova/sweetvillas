@@ -1,7 +1,6 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.dao.UserDAO;
-import com.nimesia.sweetvillas.entities.AccountEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.dao.UserRepository;
 import org.json.JSONException;
@@ -37,17 +36,21 @@ public class UserService extends AbsService {
     }
 
     public Serializable create(UserEntity user) {
+
         user.getAccount()
-                .setPwd(
-                        passwordEncoder.encode(user.getAccount().getPwd())
-                );
+                .setPwd(passwordEncoder.encode(user.getAccount().getPwd()));
+
         return repository.save(user);
+
     }
 
     public UserEntity getByEmailAndPassword(String email, String pwd) {
 
-        String hashedPwd = passwordEncoder.encode(pwd);
-        return repository.getByAccountEmailAndPwd(email, hashedPwd);
+        UserEntity user = repository.getByAccountEmail(email);
 
+        if (passwordEncoder.matches(pwd, user.getAccount().getPwd())) {
+            return user;
+        }
+        return null;
     }
 }

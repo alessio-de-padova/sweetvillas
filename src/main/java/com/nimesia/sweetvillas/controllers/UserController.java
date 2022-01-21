@@ -61,7 +61,7 @@ class UserController extends AbsController{
         return svc.search(params);
     }
 
-    @PostMapping("/users/create")
+    @PostMapping("/public/users/create")
     @Valid
     public ResponseEntity create(
             @Valid
