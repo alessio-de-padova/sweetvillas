@@ -11,5 +11,4 @@ public class CORSConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .allowedOrigins("http://localhost:3000");
     }
-
 }

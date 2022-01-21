@@ -14,11 +14,11 @@ public class JwtProvider {
     /**
      * Create jwt string.
      *
-     * @param subject       the subject
+     * @param subject the subject
      * @return the JWT string
      */
     public static String createJwt(String subject) {
-        JWTCreator.Builder builder =  JWT.create()
+        JWTCreator.Builder builder = JWT.create()
                 .withSubject(subject)
                 .withIssuer(issuer)
                 .withIssuedAt(DateTime.now().toDate())
@@ -34,8 +34,9 @@ public class JwtProvider {
      * @return the decoded JWT
      */
     public static DecodedJWT verifyJwt(String jwt) {
-        return JWT.require(Algorithm.HMAC256(SecurityConfig.secret)).build().verify(jwt);
+        return JWT.require(Algorithm.HMAC256(SecurityConfig.secret))
+                .build()
+                .verify(jwt);
     }
 
-    private JwtProvider() {}
 }
