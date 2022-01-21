@@ -6,6 +6,7 @@ import com.nimesia.sweetvillas.dao.UserRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
@@ -19,6 +20,8 @@ public class UserService extends AbsService {
     private UserRepository repository;
     @Autowired
     private UserDAO dao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Optional<UserEntity> get(String id) {
         return repository.findById(id);
@@ -28,7 +31,15 @@ public class UserService extends AbsService {
         return dao.search(params);
     }
 
-    public Serializable save(UserEntity user) {
+    public Serializable update(UserEntity user) {
+        return repository.save(user);
+    }
+
+    public Serializable create(UserEntity user) {
+        user.getAccount()
+                .setPwd(
+                        passwordEncoder.encode(user.getAccount().getPwd())
+                );
         return repository.save(user);
     }
 }

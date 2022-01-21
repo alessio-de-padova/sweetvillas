@@ -79,7 +79,7 @@ class UserController extends AbsController{
         UserEntity userEntity = mapper.map(user);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.save(userEntity));
+                .body(svc.create(userEntity));
 
     }
 
@@ -96,7 +96,7 @@ class UserController extends AbsController{
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.save(userEntity));
+                .body(svc.update(userEntity));
     }
 
 }

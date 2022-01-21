@@ -40,7 +40,7 @@ class AccountController extends AbsController{
         AccountEntity accountEntity = mapper.map(account);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.save(accountEntity));
+                .body(svc.update(accountEntity));
 
     }
 

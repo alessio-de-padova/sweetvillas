@@ -20,7 +20,6 @@ public class AccountEntity extends AbsEntity {
     private @Getter @Setter String email;
 
     @Column(name = "pwd")
-    @Convert(converter = AttributeEncryptor.class)
     private @Getter @Setter String pwd;
 
     @Column(name = "enabled")

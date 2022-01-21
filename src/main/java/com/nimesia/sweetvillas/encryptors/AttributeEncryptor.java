@@ -20,7 +20,7 @@ public class AttributeEncryptor implements AttributeConverter<String, String> {
     private final Key key;
     private final Cipher cipher;
 
-    public AttributeEncryptor( @Value("${datasource.encryptkey}") String secret) throws Exception {
+    public AttributeEncryptor( @Value("${spring.datasource.encryptkey}") String secret) throws Exception {
         key = new SecretKeySpec(secret.getBytes(), AES);
         cipher = Cipher.getInstance(AES);
     }
