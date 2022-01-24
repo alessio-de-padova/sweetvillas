@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +26,8 @@ public class UserService extends AbsService {
         return repository.findById(id);
     }
 
-    public List<UserEntity> search(JSONObject params) throws JSONException {
-        return dao.search(params);
+    public List<UserEntity> search(String str, Integer page, Integer limit) throws JSONException {
+        return dao.search(str, page, limit);
     }
 
     public UserEntity update(UserEntity user) {
@@ -36,7 +35,6 @@ public class UserService extends AbsService {
     }
 
     public UserEntity create(UserEntity user) {
-
         user.getAccount()
                 .setPwd(passwordEncoder.encode(user.getAccount().getPwd()));
         return repository.save(user);

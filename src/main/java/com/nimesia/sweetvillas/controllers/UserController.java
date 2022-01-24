@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,25 +41,11 @@ class UserController extends AbsController{
     @GetMapping("/users/search")
     public List<UserEntity> search(
             @RequestParam(name = "str", defaultValue = "") String str,
-            @RequestParam(name = "birthCity", defaultValue = "0") Integer birthCityId,
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "size", defaultValue = "20") Integer limit
     ) throws JSONException {
 
-        JSONObject params = new JSONObject();
-
-        if (str.length() > 0) {
-            params.put("str", str);
-        }
-
-        if (birthCityId != 0) {
-            params.put("birthCityId", birthCityId);
-        }
-
-        params.put("page", page);
-        params.put("limit", limit);
-
-        return svc.search(params);
+        return svc.search(str, page, limit );
     }
 
     @PostMapping("/public/users/create")
@@ -91,7 +78,6 @@ class UserController extends AbsController{
 
         AccountEntity prevAccount = accountSvc.get(user.getAccount().getId());
         user.getAccount().setPwd(prevAccount.getPwd());
-
         UserEntity userEntity = mapper.map(user);
 
         return ResponseEntity

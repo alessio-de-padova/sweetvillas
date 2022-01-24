@@ -14,6 +14,5 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
     @Query("select u from UserEntity u join AccountEntity a on u.account.id = a.id where a.email = :email")
     public UserEntity getByAccountEmail(String email);
 
-    @Query("delete from UserEntity u where u.id = :id")
     public void deleteById(String id);
 }

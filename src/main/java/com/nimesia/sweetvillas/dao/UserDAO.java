@@ -20,15 +20,12 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<UserEntity> search(JSONObject params) throws JSONException {
+    public List<UserEntity> search(String str, Integer page, Integer limit) throws JSONException {
 
-        String str = params.getString("str");
-        Integer page = params.getInt("page");
-        Integer limit = params.getInt("limit");
 
         String sql = "SELECT u FROM UserEntity u  ";
 
-        if (!str.isEmpty()) {
+        if ( str != null) {
             sql += "INNER JOIN u.account a ";
         }
 

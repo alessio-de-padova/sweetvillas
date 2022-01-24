@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "users", schema = "public")
@@ -45,7 +45,6 @@ public class UserEntity extends AbsEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "spec_id")
     )
-    private @Getter @Setter Set<SpecEntity> specs;
-
+    private @Getter @Setter List<SpecEntity> specs;
 
 }
