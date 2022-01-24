@@ -17,12 +17,13 @@ public class JwtProvider {
      * @param subject the subject
      * @return the JWT string
      */
-    public static String createJwt(String subject) {
+    public static String createJwt(String subject, Integer seconds) {
+
         JWTCreator.Builder builder = JWT.create()
                 .withSubject(subject)
                 .withIssuer(issuer)
                 .withIssuedAt(DateTime.now().toDate())
-                .withExpiresAt(DateTime.now().plusMonths(1).toDate());
+                .withExpiresAt(DateTime.now().plusSeconds(seconds).toDate());
 
         return builder.sign(Algorithm.HMAC256(SecurityConfig.secret));
     }

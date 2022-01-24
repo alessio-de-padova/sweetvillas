@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "specs", schema = "public")
@@ -14,8 +15,13 @@ public class SpecEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter @Setter String id;
 
-    @Column(name = "spec")
-    private @Getter @Setter String name;
-
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "specs_translations",
+            joinColumns = @JoinColumn(name = "spec_id"),
+            inverseJoinColumns = @JoinColumn(name = "translation_id")
+    )
+    private @Getter @Setter
+    Set<TextEntity> texts;
 
 }

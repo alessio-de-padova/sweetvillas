@@ -2,8 +2,6 @@ package com.nimesia.sweetvillas.dao;
 
 import com.nimesia.sweetvillas.interceptors.MainInterceptor;
 import com.nimesia.sweetvillas.entities.UserEntity;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,26 +18,25 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<UserEntity> search(String str, Integer page, Integer limit) throws JSONException {
-
+    public List<UserEntity> search(String str, Integer page, Integer limit) {
 
         String sql = "SELECT u FROM UserEntity u  ";
 
-        if ( str != null) {
+        if (str.length() > 0) {
             sql += "INNER JOIN u.account a ";
         }
 
         sql += "WHERE 1 = 1 ";
 
-        if (!str.isEmpty()) {
+        if (str.length() > 0) {
             sql += "AND LOWER(u.name) LIKE :str OR LOWER(u.surname) LIKE :str OR LOWER(a.email) LIKE :str ";
-        };
+        }
 
         Query q = entityManager.createQuery(sql);
 
-        if (!str.isEmpty()) {
+        if (str.length() > 0) {
             q.setParameter("str", str.toLowerCase() + "%");
-        };
+        }
 
         q.setFirstResult(page * limit);
         q.setMaxResults(limit);

@@ -37,9 +37,12 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
         if (header != null && header.startsWith(SecurityConfig.prefix)) {
             DecodedJWT decoded = JwtProvider.verifyJwt(header.replace(SecurityConfig.prefix, ""));
-            SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(decoded.getSubject(), null, Collections.emptyList())
-            );
+            SecurityContextHolder
+                    .getContext()
+                    .setAuthentication(
+                            new UsernamePasswordAuthenticationToken(decoded.getSubject(), null, Collections.emptyList())
+                    );
+            request.setAttribute("decoded", decoded);
         }
         chain.doFilter(request, response);
     }

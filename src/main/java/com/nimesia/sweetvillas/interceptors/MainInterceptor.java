@@ -4,8 +4,12 @@ package com.nimesia.sweetvillas.interceptors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.nimesia.sweetvillas.config.SecurityConfig;
+import com.nimesia.sweetvillas.providers.JwtProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainInterceptor implements HandlerInterceptor {
 
     private Logger logger = LoggerFactory.getLogger(MainInterceptor.class);
+    @Autowired
+    private HttpServletRequest context;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -21,6 +27,7 @@ public class MainInterceptor implements HandlerInterceptor {
 
         long startTime = System.currentTimeMillis();
         logger.info("Request URL::" + request.getRequestURL().toString());
+
         request.setAttribute("startTime", startTime);
 
         //if returned false, we need to make sure 'response' is sent
