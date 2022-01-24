@@ -31,17 +31,19 @@ public class UserService extends AbsService {
         return dao.search(params);
     }
 
-    public Serializable update(UserEntity user) {
+    public UserEntity update(UserEntity user) {
         return repository.save(user);
     }
 
-    public Serializable create(UserEntity user) {
+    public UserEntity create(UserEntity user) {
 
         user.getAccount()
                 .setPwd(passwordEncoder.encode(user.getAccount().getPwd()));
-
         return repository.save(user);
+    }
 
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 
     public UserEntity getByEmailAndPassword(String email, String pwd) {
