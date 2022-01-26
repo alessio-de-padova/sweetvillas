@@ -48,9 +48,10 @@ public class UserService extends AbsService {
 
         UserEntity user = repository.getByAccountEmail(email);
 
-        if (passwordEncoder.matches(pwd, user.getAccount().getPwd())) {
+        if ( user != null && passwordEncoder.matches(pwd, user.getAccount().getPwd())) {
             return user;
         }
+
         return null;
     }
 }

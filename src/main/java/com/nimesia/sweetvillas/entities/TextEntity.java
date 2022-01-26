@@ -12,7 +12,7 @@ public class TextEntity {
     @Id
     @Column(name = "translation_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Getter @Setter String id;
+    private @Getter @Setter Integer id;
 
     @Column(name = "translation")
     private @Getter @Setter String text;

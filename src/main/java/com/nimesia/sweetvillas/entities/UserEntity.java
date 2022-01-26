@@ -45,6 +45,6 @@ public class UserEntity extends AbsEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "spec_id")
     )
-    private @Getter @Setter List<SpecEntity> specs;
+    private @Getter @Setter List<UserSpecEntity> specs;
 
 }

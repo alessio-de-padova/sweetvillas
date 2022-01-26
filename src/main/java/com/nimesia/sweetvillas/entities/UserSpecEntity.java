@@ -8,13 +8,13 @@ import java.util.Set;
 
 @Entity
 @Table(name = "specs", schema = "public")
-public class SpecEntity extends AbsEntity {
+public class UserSpecEntity extends AbsEntity {
 
     @Id
     @Column(name = "spec_id")
     private @Getter @Setter String id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "specs_translations",
             joinColumns = @JoinColumn(name = "spec_id"),

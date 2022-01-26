@@ -1,17 +1,12 @@
 package com.nimesia.sweetvillas.controllers;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nimesia.sweetvillas.bean.ApiError;
-import com.nimesia.sweetvillas.config.SecurityConfig;
 import com.nimesia.sweetvillas.dto.UserDTO;
 import com.nimesia.sweetvillas.entities.AccountEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.mappers.UserMapper;
-import com.nimesia.sweetvillas.providers.JwtProvider;
 import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.UserService;
-import lombok.Getter;
-import org.apache.catalina.User;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,12 +33,15 @@ class UserController extends AbsController {
      * @param id
      */
     @GetMapping("/users/get")
-    public UserEntity get(
+    public ResponseEntity<UserEntity> get(
             @RequestParam(name = "id") String id
     ) {
+
         UserEntity user = svc.get(id).get();
         user.getAccount().setPwd(null);
-        return user;
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(user);
     }
 
     /**
@@ -54,13 +52,15 @@ class UserController extends AbsController {
      * @param limit
      */
     @GetMapping("/users/search")
-    public List<UserEntity> search(
+    public ResponseEntity search(
             @RequestParam(name = "str", defaultValue = "") String str,
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "limit", defaultValue = "20") Integer limit
     ) throws JSONException {
 
-        return svc.search(str, page, limit);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(svc.search(str, page, limit));
     }
 
     /**
@@ -101,7 +101,7 @@ class UserController extends AbsController {
 
         UserEntity requestUser = getRequestUser();
 
-        if ( !requestUser.getRole().getId().equals(getADM()) && !requestUser.getId().equals(user.getId()) ) {
+        if (!requestUser.getRole().getId().equals(getADM()) && !requestUser.getId().equals(user.getId())) {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
 

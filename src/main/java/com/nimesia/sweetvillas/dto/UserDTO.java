@@ -22,7 +22,7 @@ public class UserDTO extends AbsDTO {
     @Valid
     private @Getter @Setter AccountDTO account;
     private @Getter @Setter RoleDTO role;
-    private @Getter @Setter List<SpecDTO> specs;
+    private @Getter @Setter List<UserSpecDTO> specs;
 
 
 }
