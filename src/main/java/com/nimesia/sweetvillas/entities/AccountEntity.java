@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "accounts", schema = "public")
+@Table(name = "accounts", schema = "crm")
 public class AccountEntity extends AbsEntity {
 
     @Id

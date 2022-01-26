@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "langs", schema = "public")
+@Table(name = "langs", schema = "crm")
 public class LangEntity {
 
     @Id

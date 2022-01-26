@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "users", schema = "public")
+@Table(name = "users", schema = "crm")
 public class UserEntity extends AbsEntity {
 
     @Id

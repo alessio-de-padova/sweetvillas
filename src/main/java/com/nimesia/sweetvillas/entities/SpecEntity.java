@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "specs", schema = "public")
+@Table(name = "specs", schema = "crm")
 public class SpecEntity extends AbsEntity {
 
     @Id
