@@ -17,6 +17,7 @@ public class SpecEntity extends AbsEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "specs_translations",
+            schema="crm",
             joinColumns = @JoinColumn(name = "spec_id"),
             inverseJoinColumns = @JoinColumn(name = "translation_id")
     )

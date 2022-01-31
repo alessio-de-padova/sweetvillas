@@ -42,6 +42,7 @@ public class UserEntity extends AbsEntity {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "users_specs",
+            schema = "crm",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "spec_id")
     )
