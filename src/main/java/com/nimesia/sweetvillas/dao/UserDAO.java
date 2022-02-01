@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -21,33 +22,9 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+
+
     public List<UserEntity> search(String str, Integer page, Integer limit) {
-
-        String sql = "SELECT u FROM UserEntity u  ";
-
-        if (str.length() > 0) {
-            sql += "INNER JOIN u.account a ";
-        }
-
-        sql += "WHERE 1 = 1 ";
-
-        if (str.length() > 0) {
-            sql += "AND LOWER(u.name) LIKE :str OR LOWER(u.surname) LIKE :str OR LOWER(a.email) LIKE :str ";
-        }
-
-        Query q = entityManager.createQuery(sql);
-
-        if (str.length() > 0) {
-            q.setParameter("str", str.toLowerCase() + "%");
-        }
-
-        q.setFirstResult(page * limit);
-        q.setMaxResults(limit);
-        return q.getResultList();
-
-    }
-
-    public List<UserEntity> search_test(String str, Integer page, Integer limit) {
 
 
         CriteriaBuilder qb = entityManager.getCriteriaBuilder();
@@ -56,12 +33,14 @@ public class UserDAO {
         query.select(root);
 
         if (str.length() > 0) {
-            query.where(qb.equal(root.get("name"), str))
-                    .where(qb.equal(root.get("surname"), str))
-                    .where(qb.equal(root.get("email"), str));
+            Predicate checkName = qb.equal(root.get("name"), str);
+            Predicate checkSurname = qb.equal(root.get("surname"), str);
+            Predicate checkEmail = qb.equal(root.get("account").get("email"), str);
 
+            query.where(
+                    qb.or( checkName, checkSurname, checkEmail)
+            );
         }
-
 
         Query q = entityManager.createQuery(query);
 

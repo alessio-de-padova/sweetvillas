@@ -7,7 +7,6 @@ import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.mappers.UserMapper;
 import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.UserService;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
