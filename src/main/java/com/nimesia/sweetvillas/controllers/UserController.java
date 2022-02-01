@@ -26,7 +26,6 @@ class UserController extends AbsController {
     @Autowired
     private UserMapper mapper;
 
-
     /**
      * Get by id request
      *
@@ -56,7 +55,7 @@ class UserController extends AbsController {
             @RequestParam(name = "str", defaultValue = "") String str,
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "limit", defaultValue = "20") Integer limit
-    ) throws JSONException {
+    ) {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

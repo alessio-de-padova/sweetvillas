@@ -16,7 +16,7 @@ public class AbsController {
     private HttpServletRequest context;
     @Autowired
     private UserService userService;
-    private @Getter
+    private static final @Getter
     String ADM = "ADM";
 
     public ArrayList<ApiError> validatePwd(
@@ -40,7 +40,6 @@ public class AbsController {
 
         return errors;
     }
-
 
     public UserEntity getRequestUser() {
         DecodedJWT decoded = (DecodedJWT) context.getAttribute("decoded");

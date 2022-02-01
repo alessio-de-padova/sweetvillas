@@ -28,8 +28,7 @@ public class UserService extends AbsService {
     }
 
     public List<UserEntity> search(String str, Integer page, Integer limit) {
-        List<UserEntity> userEntities = dao.search(str, page, limit);
-        return userEntities;
+        return dao.search(str, page, limit);
     }
 
     public UserEntity update(UserEntity user) {
@@ -50,7 +49,7 @@ public class UserService extends AbsService {
 
         UserEntity user = repository.getByAccountEmail(email);
 
-        if ( user != null && passwordEncoder.matches(pwd, user.getAccount().getPwd())) {
+        if (user != null && passwordEncoder.matches(pwd, user.getAccount().getPwd())) {
             return user;
         }
 

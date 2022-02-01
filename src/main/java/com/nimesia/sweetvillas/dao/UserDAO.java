@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Component
@@ -40,6 +43,31 @@ public class UserDAO {
 
         q.setFirstResult(page * limit);
         q.setMaxResults(limit);
+        return q.getResultList();
+
+    }
+
+    public List<UserEntity> search_test(String str, Integer page, Integer limit) {
+
+
+        CriteriaBuilder qb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<UserEntity> query = qb.createQuery(UserEntity.class);
+        Root<UserEntity> root = query.from(UserEntity.class);
+        query.select(root);
+
+        if (str.length() > 0) {
+            query.where(qb.equal(root.get("name"), str))
+                    .where(qb.equal(root.get("surname"), str))
+                    .where(qb.equal(root.get("email"), str));
+
+        }
+
+
+        Query q = entityManager.createQuery(query);
+
+        q.setFirstResult(page * limit);
+        q.setMaxResults(limit);
+
         return q.getResultList();
 
     }
