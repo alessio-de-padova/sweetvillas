@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends JpaRepository  <AccountEntity, String>{
 
-    public AccountEntity findById(Integer id);
+    AccountEntity findById(Integer id);
+    AccountEntity findByEmail(String email);
 
 }
 

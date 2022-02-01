@@ -31,7 +31,7 @@ class UserController extends AbsController {
      * @param id
      */
     @GetMapping("/users/get")
-    public ResponseEntity<UserEntity> get(
+    public ResponseEntity get(
             @RequestParam(name = "id") String id
     ) {
 
@@ -56,9 +56,17 @@ class UserController extends AbsController {
             @RequestParam(name = "limit", defaultValue = "20") Integer limit
     ) {
 
+        List<UserEntity> userEntities = svc.search(str, page, limit);
+        List<UserDTO> users = new ArrayList<>();
+
+        for (UserEntity entity : userEntities) {
+            entity.getAccount().setPwd("");
+            users.add( mapper.map(entity));
+        }
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.search(str, page, limit));
+                .body(users);
     }
 
     /**
@@ -71,7 +79,7 @@ class UserController extends AbsController {
     public ResponseEntity create(
             @Valid @RequestBody UserDTO user
     ) {
-        List<ApiError> errors = validatePwd(user.getAccount());
+        List<ApiError> errors = validateAccount(user.getAccount());
 
         if (errors.size() > 0) {
             return ResponseEntity
@@ -101,6 +109,14 @@ class UserController extends AbsController {
 
         if (!requestUser.getRole().getId().equals(getADM()) && !requestUser.getId().equals(user.getId())) {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+        List<ApiError> errors = validateEmail(user.getAccount());
+
+        if (errors.size() > 0 ) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(errors);
         }
 
         AccountEntity prevAccount = accountSvc.get(user.getAccount().getId());

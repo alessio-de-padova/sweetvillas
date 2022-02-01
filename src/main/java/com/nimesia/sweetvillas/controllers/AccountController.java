@@ -45,7 +45,7 @@ class AccountController extends AbsController{
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
 
-        List<ApiError> errors = validatePwd(account);
+        List<ApiError> errors = validateAccount(account);
 
         if (errors.size() > 0) {
             return ResponseEntity

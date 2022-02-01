@@ -3,7 +3,9 @@ package com.nimesia.sweetvillas.controllers;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nimesia.sweetvillas.bean.ApiError;
 import com.nimesia.sweetvillas.dto.AccountDTO;
+import com.nimesia.sweetvillas.entities.AccountEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.UserService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,15 @@ public class AbsController {
     private HttpServletRequest context;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AccountService accountService;
     private static final @Getter
     String ADM = "ADM";
 
-    public ArrayList<ApiError> validatePwd(
+    public ArrayList<ApiError> validateAccount(
             AccountDTO account
     ) {
-        ArrayList<ApiError> errors = new ArrayList<>();
+        ArrayList<ApiError> errors = validateEmail(account);
 
         if (!account.pdwMatch()) {
             ApiError error = new ApiError();
@@ -35,6 +39,23 @@ public class AbsController {
             ApiError error = new ApiError();
             error.setType("PwdNotValid");
             error.setPropertyPath("pwd");
+            errors.add(error);
+        }
+
+        return errors;
+    }
+
+    public ArrayList<ApiError> validateEmail(
+            AccountDTO account
+    ) {
+        ArrayList<ApiError> errors = new ArrayList<>();
+
+        AccountEntity accountEntity = accountService.getByEmail(account.getEmail());
+
+        if (accountEntity != null && !accountEntity.getId().equals(account.getId())) {
+            ApiError error = new ApiError();
+            error.setType("EmailExists");
+            error.setPropertyPath("email");
             errors.add(error);
         }
 

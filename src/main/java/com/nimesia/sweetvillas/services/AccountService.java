@@ -18,6 +18,8 @@ public class AccountService extends AbsService {
 
     public AccountEntity get(Integer id)  {return repository.findById(id);}
 
+    public AccountEntity getByEmail(String email)  {return repository.findByEmail(email);}
+
     public Serializable update(AccountEntity account) {
 
         account.setPwd( passwordEncoder.encode(account.getPwd()) );
