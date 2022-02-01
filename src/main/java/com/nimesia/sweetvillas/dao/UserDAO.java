@@ -22,10 +22,7 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-
-
     public List<UserEntity> search(String str, Integer page, Integer limit) {
-
 
         CriteriaBuilder qb = entityManager.getCriteriaBuilder();
         CriteriaQuery<UserEntity> query = qb.createQuery(UserEntity.class);

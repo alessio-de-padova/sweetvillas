@@ -91,7 +91,6 @@ class UserController extends AbsController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(svc.create(userEntity));
-
     }
 
     /**
