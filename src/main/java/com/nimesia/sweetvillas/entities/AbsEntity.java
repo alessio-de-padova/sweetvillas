@@ -1,6 +1,8 @@
 package com.nimesia.sweetvillas.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,29 +17,15 @@ import java.util.Date;
         allowGetters = true
 )
 public abstract class AbsEntity implements Serializable {
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date", nullable = false, updatable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "created_date", updatable = false)
     @CreatedDate
-    private Date createdAt;
+    private  @Getter @Setter
+    Date createdAt = new Date();
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "updated_date")
     @LastModifiedDate
-    private Date updatedAt;
+    private  @Getter @Setter Date updatedAt = new Date();
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }
