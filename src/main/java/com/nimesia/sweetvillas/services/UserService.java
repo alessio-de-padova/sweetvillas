@@ -1,6 +1,7 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.dao.UserDAO;
+import com.nimesia.sweetvillas.dto.UserDTO;
 import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.dao.UserRepository;
 import org.json.JSONException;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +27,9 @@ public class UserService extends AbsService {
         return repository.findById(id);
     }
 
-    public List<UserEntity> search(String str, Integer page, Integer limit) throws JSONException {
-        return dao.search(str, page, limit);
+    public List<UserEntity> search(String str, Integer page, Integer limit) {
+        List<UserEntity> userEntities = dao.search(str, page, limit);
+        return userEntities;
     }
 
     public UserEntity update(UserEntity user) {

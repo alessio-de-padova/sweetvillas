@@ -9,6 +9,4 @@ import java.util.Date;
 public class AbsDTO implements Serializable {
     private @Getter @Setter Date createdAt;
     private @Getter @Setter Date updatedAt;
-
-
 }
