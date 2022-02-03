@@ -15,15 +15,16 @@ public class JwtProvider {
     /**
      * Create jwt string.
      *
-     * @param subject the subject
+     * @param user the user entity
      * @return the JWT string
      */
-    public static String createJwt(String subject, Integer seconds) {
+    public static String createJwt(  UserEntity user, Integer seconds) {
 
         JWTCreator.Builder builder = JWT.create()
-                .withSubject(subject)
+                .withSubject(user.getId())
                 .withIssuer(issuer)
                 .withIssuedAt(DateTime.now().toDate())
+                .withClaim("role", user.getRole().getId())
                 .withExpiresAt(DateTime.now().plusSeconds(seconds).toDate());
 
         return builder.sign(Algorithm.HMAC256(SecurityConfig.secret));

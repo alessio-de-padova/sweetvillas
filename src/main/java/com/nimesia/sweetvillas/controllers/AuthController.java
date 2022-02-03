@@ -47,7 +47,7 @@ class AuthController {
                     .body(error);
         }
 
-        String jwt = JwtProvider.createJwt(user.getId(), 60800);
+        String jwt = JwtProvider.createJwt(user, 60800);
         LoginResultDTO dto = new LoginResultDTO();
         dto.setToken(jwt);
         dto.setUser(mapper.map(user));
