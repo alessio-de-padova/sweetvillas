@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -34,10 +36,11 @@ class AuthController {
      */
     @PostMapping("/public/auth/login")
     public ResponseEntity login(
-            @Valid
-            @RequestBody LoginDTO login
+            @Valid @RequestBody LoginDTO login,
+            HttpServletResponse response
     ) {
         UserEntity user = userService.getByEmailAndPassword(login.getEmail(), login.getPwd());
+        user.getAccount().setPwd("");
 
         if (user == null) {
             ApiError error = new ApiError();
@@ -49,7 +52,11 @@ class AuthController {
 
         String jwt = JwtProvider.createJwt(user, 60800);
         LoginResultDTO dto = new LoginResultDTO();
-        dto.setToken(jwt);
+
+        Cookie token = new Cookie("token", jwt);
+        token.setPath("/");
+        response.addCookie(token);
+
         dto.setUser(mapper.map(user));
 
         return ResponseEntity
