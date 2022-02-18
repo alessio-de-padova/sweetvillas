@@ -12,9 +12,11 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -34,10 +36,18 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String header = request.getHeader(SecurityConfig.param);
 
-        if (header != null && header.startsWith(SecurityConfig.prefix)) {
-            DecodedJWT decoded = JwtProvider.verifyJwt(header.replace(SecurityConfig.prefix, ""));
+        String token = null;
+
+        for (Cookie cookie : request.getCookies()) {
+
+            if ( cookie.getName().equals("token") ) {
+                token = cookie.getValue();
+            }
+        }
+
+        if (token != null) {
+            DecodedJWT decoded = JwtProvider.verifyJwt(token);
             SecurityContextHolder
                     .getContext()
                     .setAuthentication(

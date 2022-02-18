@@ -21,13 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfig(
-            @Value("${security.secret}") String secret,
-            @Value("${security.param}") String param,
-            @Value("${security.prefix}") String prefix
+            @Value("${security.secret}") String secret
     ) {
         SecurityConfig.secret = secret;
-        SecurityConfig.param = param;
-        SecurityConfig.prefix = prefix;
     }
 
     @Override
