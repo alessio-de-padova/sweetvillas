@@ -1,12 +1,17 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.entities.AccountEntity;
+import com.nimesia.sweetvillas.entities.RoleEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.entities.UserSpecEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -23,11 +28,16 @@ public class UserServiceTest {
         account.setEmail("paziente.provy@gmail.com");
         account.setPwd("Lollo1195!");
 
+        RoleEntity role = new RoleEntity();
+        role.setId("ADM");
+        role.setName("Scribaldino");
+
         UserEntity user = new UserEntity();
         user.setName("Paziente");
         user.setSurname("Prova");
         user.setFiscalCode("NGMPFP56E4GL420Z");
         user.setAccount(account);
+        user.setRole(role);
 
         UserEntity createdUser = userService.create(user);
 
@@ -44,6 +54,9 @@ public class UserServiceTest {
 
         assertThat(newUser.getAccount().getEmail())
                 .isEqualTo(user.getAccount().getEmail());
+
+        assertThat(newUser.getRole().getName())
+                .isNotEqualTo(user.getRole().getName());
 
         userService.delete(user.getId());
     }
@@ -79,22 +92,34 @@ public class UserServiceTest {
         account.setEmail("paziente.provy@gmail.com");
         account.setPwd("Lollo1195!");
 
+        RoleEntity role = new RoleEntity();
+        role.setId("ADM");
+        role.setName("Scribaldino");
+
+
         UserEntity user = new UserEntity();
         user.setName("Paziente");
         user.setSurname("Prova");
         user.setFiscalCode("NGMPFP56E4GL420Z");
         user.setAccount(account);
+        user.setRole(role);
 
         UserEntity createdUser = userService.create(user);
 
         String newName = "Pippo";
         String newSurname = "Pluto";
         String newEmail = "paziente.prova@tiscali.it";
+        String newRoleId = "OPE";
+        String newRoleName = "PATACCA";
 
         createdUser.setName( newName );
         createdUser.setSurname( newSurname );
         createdUser.getAccount()
                     .setEmail( newEmail);
+        createdUser.getRole()
+                .setId(newRoleId);
+        createdUser.getRole()
+                .setName(newRoleName);
 
         UserEntity updatedUser = userService.update( createdUser );
 
@@ -106,7 +131,10 @@ public class UserServiceTest {
                 .isEqualTo(newName);
         assertThat(newUser.getSurname())
                 .isEqualTo(newSurname);
-
+        assertThat(newUser.getRole().getId())
+                .isEqualTo(newRoleId);
+        assertThat(newUser.getRole().getName())
+                .isNotEqualTo(newRoleName);
         assertThat(newUser.getAccount().getEmail())
                 .isEqualTo(newEmail);
 

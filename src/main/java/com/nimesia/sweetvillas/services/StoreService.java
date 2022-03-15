@@ -17,4 +17,9 @@ public class StoreService extends AbsService {
 
     public StoreEntity save(StoreEntity store) { return repository.save(store); }
 
+    public void delete(Integer id) {
+        repository.deleteById(id);
+    }
+
+
 }

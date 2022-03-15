@@ -14,7 +14,7 @@ public class UserSpecEntity extends AbsEntity {
     @Column(name = "spec_id")
     private @Getter @Setter String id;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "specs_translations",
             schema = "crm",

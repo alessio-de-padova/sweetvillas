@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,6 @@ public class SpecEntity extends AbsEntity {
             inverseJoinColumns = @JoinColumn(name = "translation_id")
     )
     private @Getter @Setter
-    Set<TextEntity> texts;
+    List<TextEntity> texts;
 
 }

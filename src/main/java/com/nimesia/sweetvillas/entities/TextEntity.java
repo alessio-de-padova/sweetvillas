@@ -17,7 +17,7 @@ public class TextEntity {
     @Column(name = "translation")
     private @Getter @Setter String text;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "lang_id")
     private @Getter @Setter LangEntity lang;
 

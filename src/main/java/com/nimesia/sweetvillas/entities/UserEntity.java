@@ -35,11 +35,11 @@ public class UserEntity extends AbsEntity {
     @JoinColumn(name = "account_id")
     private @Getter @Setter AccountEntity account;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "role_id")
     private @Getter @Setter RoleEntity role;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "users_specs",
             schema = "crm",
@@ -47,5 +47,4 @@ public class UserEntity extends AbsEntity {
             inverseJoinColumns = @JoinColumn(name = "spec_id")
     )
     private @Getter @Setter List<UserSpecEntity> specs;
-
 }

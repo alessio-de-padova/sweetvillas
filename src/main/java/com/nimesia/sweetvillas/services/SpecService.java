@@ -17,9 +17,12 @@ public class SpecService {
         return repository.findById(id);
     }
 
-    public SpecEntity create(SpecEntity user) {
-
+    public SpecEntity save(SpecEntity user) {
         return repository.save(user);
+    }
+
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 
 }

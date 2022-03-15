@@ -54,7 +54,7 @@ class SpecController extends AbsController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.create(specEntity));
+                .body(svc.save(specEntity));
 
     }
 
