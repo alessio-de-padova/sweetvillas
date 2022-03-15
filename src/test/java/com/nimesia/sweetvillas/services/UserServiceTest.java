@@ -44,6 +44,7 @@ public class UserServiceTest {
 
         assertThat(newUser.getAccount().getEmail())
                 .isEqualTo(user.getAccount().getEmail());
+
         userService.delete(user.getId());
     }
 
@@ -72,6 +73,45 @@ public class UserServiceTest {
 
     }
 
+    @Test
+    public void update_user() {
+        AccountEntity account = new AccountEntity();
+        account.setEmail("paziente.provy@gmail.com");
+        account.setPwd("Lollo1195!");
+
+        UserEntity user = new UserEntity();
+        user.setName("Paziente");
+        user.setSurname("Prova");
+        user.setFiscalCode("NGMPFP56E4GL420Z");
+        user.setAccount(account);
+
+        UserEntity createdUser = userService.create(user);
+
+        String newName = "Pippo";
+        String newSurname = "Pluto";
+        String newEmail = "paziente.prova@tiscali.it";
+
+        createdUser.setName( newName );
+        createdUser.setSurname( newSurname );
+        createdUser.getAccount()
+                    .setEmail( newEmail);
+
+        UserEntity updatedUser = userService.update( createdUser );
+
+        UserEntity newUser = userService.get(updatedUser.getId()).get();
+
+        assertThat(newUser.getId())
+                .isEqualTo(updatedUser.getId());
+        assertThat(newUser.getName())
+                .isEqualTo(newName);
+        assertThat(newUser.getSurname())
+                .isEqualTo(newSurname);
+
+        assertThat(newUser.getAccount().getEmail())
+                .isEqualTo(newEmail);
+
+        userService.delete(user.getId());
+    }
 
 
 }
