@@ -58,4 +58,24 @@ class SpecController extends AbsController {
 
     }
 
+    /**
+     * Update request
+     *
+     * @param spec
+     */
+    @PostMapping("/specs/update")
+    @Valid
+    public ResponseEntity update(
+            @Valid @RequestBody SpecDTO spec
+    ) {
+
+        SpecEntity specEntity = mapper.map(spec);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(svc.save(specEntity));
+
+    }
+
+
 }

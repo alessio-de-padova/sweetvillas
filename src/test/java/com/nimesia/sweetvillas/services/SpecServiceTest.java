@@ -55,46 +55,4 @@ public class SpecServiceTest {
         specService.delete(newSpec.getId());
     }
 
-    @Test
-    public void update_spec() {
-        SpecEntity spec = new SpecEntity();
-
-        String id = "ARC";
-        List<TextEntity> texts = new ArrayList<>();
-
-        TextEntity enText = new TextEntity();
-        TextEntity itText = new TextEntity();
-
-        LangEntity enLang = new LangEntity();
-        LangEntity itLang = new LangEntity();
-
-        enLang.setId("en");
-        itLang.setId("it");
-
-        enText.setText("Archeology");
-        enText.setLang(enLang);
-        itText.setText("Archeologia");
-        itText.setLang(itLang);
-
-        texts.add(itText);
-        texts.add(enText);
-
-        spec.setId(id);
-        spec.setTexts(texts);
-
-        SpecEntity createdSpec = specService.save(spec);
-        SpecEntity newSpec = specService.get(createdSpec.getId()).get();
-
-
-        newSpec.setTexts(new ArrayList<>());
-
-        SpecEntity updatedSpec = specService.save(newSpec);
-
-        assertThat(updatedSpec.getId())
-                .isEqualTo(spec.getId());
-
-        assertThat(updatedSpec.getTexts().size() == 0);
-
-        specService.delete(newSpec.getId());
-    }
 }
