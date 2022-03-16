@@ -16,7 +16,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -39,10 +38,11 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 
         String token = null;
 
-        for (Cookie cookie : request.getCookies()) {
-
-            if ( cookie.getName().equals("token") ) {
-                token = cookie.getValue();
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if (cookie.getName().equals("token")) {
+                    token = cookie.getValue();
+                }
             }
         }
 
@@ -55,6 +55,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
                     );
             request.setAttribute("decoded", decoded);
         }
+
         chain.doFilter(request, response);
     }
 }

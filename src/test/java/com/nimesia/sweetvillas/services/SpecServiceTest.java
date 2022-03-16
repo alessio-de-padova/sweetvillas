@@ -92,7 +92,7 @@ public class SpecServiceTest {
 
         assertThat(updatedSpec.getId())
                 .isEqualTo(spec.getId());
-        
+
         assertThat(updatedSpec.getTexts().size() == 0);
 
         specService.delete(newSpec.getId());

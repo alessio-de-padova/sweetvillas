@@ -40,8 +40,6 @@ class AuthController {
             HttpServletResponse response
     ) {
         UserEntity user = userService.getByEmailAndPassword(login.getEmail(), login.getPwd());
-        user.getAccount().setPwd("");
-
         if (user == null) {
             ApiError error = new ApiError();
             error.setType("InvalidLogin");
@@ -50,14 +48,15 @@ class AuthController {
                     .body(error);
         }
 
+        user.getAccount().setPwd("");
+
         String jwt = JwtProvider.createJwt(user, 60800);
         LoginResultDTO dto = new LoginResultDTO();
+        dto.setUser(mapper.map(user));
 
         Cookie token = new Cookie("token", jwt);
         token.setPath("/");
         response.addCookie(token);
-
-        dto.setUser(mapper.map(user));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

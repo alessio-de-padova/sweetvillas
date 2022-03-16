@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class AbsController {
     @Autowired
@@ -64,6 +65,10 @@ public class AbsController {
 
     public UserEntity getRequestUser() {
         DecodedJWT decoded = (DecodedJWT) context.getAttribute("decoded");
-        return userService.get(decoded.getSubject()).get();
+        Optional<UserEntity> optionalUserEntity = userService.get(decoded.getSubject());
+        if (optionalUserEntity.isPresent() ) {
+            return optionalUserEntity.get();
+        }
+        return null;
     }
 }

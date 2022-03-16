@@ -16,8 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static String secret;
-    public static String param;
-    public static String prefix;
 
     @Autowired
     public SecurityConfig(

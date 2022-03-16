@@ -88,9 +88,12 @@ class UserController extends AbsController {
         }
 
         UserEntity userEntity = mapper.map(user);
+
+        UserEntity newUser = svc.create(userEntity);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.create(userEntity));
+                .body(newUser.getId());
     }
 
     /**
@@ -121,10 +124,11 @@ class UserController extends AbsController {
         AccountEntity prevAccount = accountSvc.get(user.getAccount().getId());
         user.getAccount().setPwd(prevAccount.getPwd());
         UserEntity userEntity = mapper.map(user);
+        UserEntity newUser = svc.update(userEntity);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.update(userEntity));
+                .body(newUser.getId());
     }
 
 }
