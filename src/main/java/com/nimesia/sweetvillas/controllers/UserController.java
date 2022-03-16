@@ -121,9 +121,14 @@ class UserController extends AbsController {
                     .body(errors);
         }
 
-        AccountEntity prevAccount = accountSvc.get(user.getAccount().getId());
-        user.getAccount().setPwd(prevAccount.getPwd());
+
         UserEntity userEntity = mapper.map(user);
+
+        // This is where you set previous data you don't want to change
+        UserEntity prevUser = svc.get( user.getId() ).get();
+        userEntity.getAccount().setPwd( prevUser.getAccount().getPwd());
+        userEntity.setRole(prevUser.getRole());
+
         UserEntity newUser = svc.update(userEntity);
 
         return ResponseEntity
