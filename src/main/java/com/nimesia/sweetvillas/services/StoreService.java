@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class StoreService extends AbsService {
 
     @Autowired
     private StoreRepository repository;
 
-    @Transactional
     public StoreEntity get(Integer id) {
         return repository.findById(id);
     }

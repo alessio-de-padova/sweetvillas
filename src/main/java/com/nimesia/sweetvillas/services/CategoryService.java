@@ -5,7 +5,10 @@ import com.nimesia.sweetvillas.dao.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class CategoryService extends AbsService {
 
     @Autowired

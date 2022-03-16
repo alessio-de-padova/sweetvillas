@@ -5,9 +5,11 @@ import com.nimesia.sweetvillas.entities.SpecEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Component
+@Transactional
 public class SpecService {
 
     @Autowired
