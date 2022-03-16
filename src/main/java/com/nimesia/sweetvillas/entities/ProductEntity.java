@@ -1,5 +1,6 @@
 package com.nimesia.sweetvillas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,6 +38,7 @@ public class ProductEntity extends AbsEntity {
     List<TextEntity> categories;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(
             name = "stores_products",
             schema = "ecommerce",
