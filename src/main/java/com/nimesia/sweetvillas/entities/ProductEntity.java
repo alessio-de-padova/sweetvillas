@@ -18,7 +18,7 @@ public class ProductEntity extends AbsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter @Setter Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinTable(
             name = "products_translations",
             schema = "ecommerce",

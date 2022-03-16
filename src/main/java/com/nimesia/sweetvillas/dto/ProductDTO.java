@@ -15,5 +15,4 @@ public class ProductDTO extends AbsDTO {
     private @Getter @Setter Set<CategoryDTO> categories;
     private @Getter @Setter BigDecimal price;
     private @Getter @Setter StoreInfoDTO store;
-
 }
