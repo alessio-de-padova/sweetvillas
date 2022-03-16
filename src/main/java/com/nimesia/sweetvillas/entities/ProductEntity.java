@@ -17,7 +17,7 @@ public class ProductEntity extends AbsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter @Setter Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinTable(
             name = "products_translations",
             schema = "ecommerce",
@@ -27,7 +27,7 @@ public class ProductEntity extends AbsEntity {
     private @Getter @Setter
     List<TextEntity> names;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "products_categories",
             joinColumns = @JoinColumn(name = "product_id"),
@@ -37,7 +37,6 @@ public class ProductEntity extends AbsEntity {
     List<TextEntity> categories;
 
     @ManyToOne(fetch = FetchType.LAZY)
-
     @JoinTable(
             name = "stores_products",
             schema = "ecommerce",

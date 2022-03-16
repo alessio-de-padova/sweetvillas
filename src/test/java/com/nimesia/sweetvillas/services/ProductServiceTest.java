@@ -19,10 +19,14 @@ public class ProductServiceTest {
 
     @Autowired
     private ProductService productService;
-
+    @Autowired
+    private CityService cityService;
+    @Autowired
+    private StoreService storeService;
 
     @Test
-    public void create_store() {
+    public void create_product() {
+
         ProductEntity product = new ProductEntity();
         BigDecimal price = new BigDecimal("12.34");
 
@@ -34,8 +38,9 @@ public class ProductServiceTest {
         LangEntity enLang = new LangEntity();
         LangEntity itLang = new LangEntity();
 
-        StoreEntity store = new StoreEntity();
-        store.setId(5);
+        // Test that store id will be enough
+        StoreEntity store = createStore();
+        store.setId( store.getId() );
 
         enLang.setId("en");
         itLang.setId("it");
@@ -53,13 +58,38 @@ public class ProductServiceTest {
         product.setStore(store);
 
         ProductEntity createdProduct = productService.save(product);
-
         ProductEntity newProduct = productService.get(createdProduct.getId());
 
         assertThat(newProduct.getId())
                 .isEqualTo(product.getId());
         assertThat(newProduct.getPrice())
                 .isEqualTo(product.getPrice());
+
+        assertThat(newProduct.getStore().getId())
+                .isEqualTo(store.getId());
+        assertThat(newProduct.getStore().getStreet())
+                .isEqualTo(store.getStreet());
+        assertThat(newProduct.getStore().getPostalCode())
+                .isEqualTo(store.getPostalCode());
+        assertThat(newProduct.getStore().getName())
+                .isEqualTo(store.getName());
+    }
+
+    private StoreEntity createStore() {
+        StoreEntity store = new StoreEntity();
+
+        String name = "Prodotti veneziani";
+        String street = "contrada san domenico";
+        Integer postalCode = 6234;
+
+        CityEntity city = cityService.get(1);
+
+        store.setName( name );
+        store.setStreet(street);
+        store.setPostalCode(postalCode);
+        store.setCity(city);
+
+        return storeService.save(store);
 
     }
 }
