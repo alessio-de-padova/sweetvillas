@@ -1,6 +1,5 @@
 package com.nimesia.sweetvillas.services;
 
-import com.nimesia.sweetvillas.entities.ProductEntity;
 import com.nimesia.sweetvillas.entities.StoreEntity;
 import com.nimesia.sweetvillas.dao.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,4 @@ public class StoreService extends AbsService {
     public void delete(Integer id) {
         repository.deleteById(id);
     }
-
-
 }

@@ -28,7 +28,7 @@ public class StoreEntity extends AbsEntity {
     @JoinColumn(name = "city_id")
     private @Getter @Setter CityEntity city;
 
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinTable(
             name = "stores_products",
             schema = "ecommerce",

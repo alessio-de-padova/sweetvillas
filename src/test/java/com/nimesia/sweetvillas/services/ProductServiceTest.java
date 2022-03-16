@@ -40,7 +40,7 @@ public class ProductServiceTest {
 
         // Test that store id will be enough
         StoreEntity store = createStore();
-        store.setId( store.getId() );
+        store.setId( 22 );
 
         enLang.setId("en");
         itLang.setId("it");

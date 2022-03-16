@@ -1,12 +1,15 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.entities.CityEntity;
+import com.nimesia.sweetvillas.entities.ProductEntity;
 import com.nimesia.sweetvillas.entities.StoreEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -82,6 +85,7 @@ public class StoreServiceTest {
         createdStore.setStreet(newStreet);
         createdStore.setPostalCode(newPostalCode);
         createdStore.setCity(newCity);
+        createdStore.setProducts(new ArrayList<ProductEntity>());
 
         StoreEntity updatedStore = storeService.save(createdStore);
         StoreEntity newStore = storeService.get(updatedStore.getId());
@@ -101,5 +105,15 @@ public class StoreServiceTest {
 
         storeService.delete(newStore.getId());
     }
+
+    @Test
+    public void get_test() {
+
+        StoreEntity newStore = storeService.get(49);
+        System.out.println(newStore);
+
+    }
+
+
 
 }
