@@ -7,13 +7,15 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.Set;
 
-public class ProductDTO extends AbsDTO {
-    private @Getter @Setter Integer id;
+public class ProductInfoDTO {
+    private @Getter
+    @Setter
+    Integer id;
     @Valid
-    private @Getter @Setter Set<TextDTO> names;
+    private @Getter @Setter
+    Set<TextDTO> names;
     @Valid
     private @Getter @Setter Set<CategoryDTO> categories;
-    private @Getter @Setter BigDecimal price;
-    private @Getter @Setter StoreInfoDTO store;
-
+    private @Getter @Setter
+    BigDecimal price;
 }

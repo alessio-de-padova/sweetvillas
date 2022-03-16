@@ -5,12 +5,15 @@ import com.nimesia.sweetvillas.dao.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class StoreService extends AbsService {
 
     @Autowired
     private StoreRepository repository;
 
+    @Transactional
     public StoreEntity get(Integer id) {
         return repository.findById(id);
     }

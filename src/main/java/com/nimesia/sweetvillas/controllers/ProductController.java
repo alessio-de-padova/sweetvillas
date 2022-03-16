@@ -1,8 +1,11 @@
 package com.nimesia.sweetvillas.controllers;
 
-import com.nimesia.sweetvillas.dto.StoreDTO;
+import com.nimesia.sweetvillas.dto.ProductDTO;
+import com.nimesia.sweetvillas.entities.ProductEntity;
 import com.nimesia.sweetvillas.entities.StoreEntity;
+import com.nimesia.sweetvillas.mappers.ProductMapper;
 import com.nimesia.sweetvillas.mappers.StoreMapper;
+import com.nimesia.sweetvillas.services.ProductService;
 import com.nimesia.sweetvillas.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,45 +19,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
-public class StoreController extends AbsController {
+public class ProductController extends AbsController {
 
     @Autowired
-    private StoreService svc;
+    private ProductService svc;
     @Autowired
-    private StoreMapper mapper;
+    private ProductMapper mapper;
 
     /**
      * Get by id request
      *
      * @param id
      */
-    @GetMapping("/stores/get")
-    public ResponseEntity<StoreDTO> get(
+    @GetMapping("/products/get")
+    public ResponseEntity<ProductDTO> get(
             @RequestParam(name = "id") Integer id
     ) {
-        StoreDTO store = mapper.map(svc.get(id));
+        ProductDTO product = mapper.map(svc.get(id));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(store);
+                .body(product);
     }
 
     /**
-     * Create store
+     * Create product
      *
-     * @param store
+     * @param product
      */
-    @PostMapping("/stores/save")
+    @PostMapping("/products/save")
     @Valid
     public ResponseEntity save(
-            @Valid @RequestBody StoreDTO store
+            @Valid @RequestBody ProductDTO product
     ) {
 
-        StoreEntity storeEntity = mapper.map(store);
+        ProductEntity productEntity = mapper.map(product);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.save(storeEntity));
+                .body( mapper.map(svc.save(productEntity)));
 
     }
 }

@@ -37,15 +37,13 @@ public class ProductEntity extends AbsEntity {
     private @Getter @Setter
     List<TextEntity> categories;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
             name = "stores_products",
             schema = "ecommerce",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id")
     )
-    @NotNull
     private @Getter @Setter
     StoreEntity store;
 
