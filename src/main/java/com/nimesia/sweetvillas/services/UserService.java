@@ -1,17 +1,13 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.dao.UserDAO;
-import com.nimesia.sweetvillas.dto.UserDTO;
 import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.dao.UserRepository;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService extends AbsService {
@@ -23,8 +19,10 @@ public class UserService extends AbsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Optional<UserEntity> get(String id) {
-        return repository.findById(id);
+    public UserEntity get(String id) {
+
+        return repository.findById(id)
+                .orElseThrow(() -> new IllegalStateException("Not found"));
     }
 
     public List<UserEntity> search(String str, Integer page, Integer limit) {

@@ -35,7 +35,7 @@ class UserController extends AbsController {
             @RequestParam(name = "id") String id
     ) {
 
-        UserEntity user = svc.get(id).get();
+        UserEntity user = svc.get(id);
         user.getAccount().setPwd(null);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -110,7 +110,9 @@ class UserController extends AbsController {
         UserEntity requestUser = getRequestUser();
 
         if (!requestUser.getRole().getId().equals(getADM()) && !requestUser.getId().equals(user.getId())) {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Cannot update");
         }
 
         List<ApiError> errors = validateEmail(user.getAccount());
@@ -125,7 +127,7 @@ class UserController extends AbsController {
         UserEntity userEntity = mapper.map(user);
 
         // This is where you set previous data you don't want to change
-        UserEntity prevUser = svc.get( user.getId() ).get();
+        UserEntity prevUser = svc.get( user.getId() );
         userEntity.getAccount().setPwd( prevUser.getAccount().getPwd());
         userEntity.setRole(prevUser.getRole());
 

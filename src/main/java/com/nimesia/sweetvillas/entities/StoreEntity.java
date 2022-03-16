@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "stores", schema = "ecommerce")
@@ -26,5 +27,15 @@ public class StoreEntity extends AbsEntity {
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "city_id")
     private @Getter @Setter CityEntity city;
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "stores_products",
+            schema = "ecommerce",
+            joinColumns = @JoinColumn(name = "store_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private @Getter @Setter
+    List<ProductEntity> products;
 
 }

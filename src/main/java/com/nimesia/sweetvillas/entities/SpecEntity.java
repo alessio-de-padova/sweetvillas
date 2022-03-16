@@ -14,7 +14,7 @@ public class SpecEntity extends AbsEntity {
     @Column(name = "spec_id")
     private @Getter @Setter String id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name = "specs_translations",
             schema="crm",
@@ -23,5 +23,4 @@ public class SpecEntity extends AbsEntity {
     )
     private @Getter @Setter
     List<TextEntity> texts;
-
 }

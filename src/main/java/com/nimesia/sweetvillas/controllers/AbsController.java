@@ -65,10 +65,7 @@ public class AbsController {
 
     public UserEntity getRequestUser() {
         DecodedJWT decoded = (DecodedJWT) context.getAttribute("decoded");
-        Optional<UserEntity> optionalUserEntity = userService.get(decoded.getSubject());
-        if (optionalUserEntity.isPresent() ) {
-            return optionalUserEntity.get();
-        }
-        return null;
+        return userService.get(decoded.getSubject());
+
     }
 }

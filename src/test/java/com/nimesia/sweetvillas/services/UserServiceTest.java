@@ -3,15 +3,11 @@ package com.nimesia.sweetvillas.services;
 import com.nimesia.sweetvillas.entities.AccountEntity;
 import com.nimesia.sweetvillas.entities.RoleEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
-import com.nimesia.sweetvillas.entities.UserSpecEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -41,7 +37,7 @@ public class UserServiceTest {
 
         UserEntity createdUser = userService.create(user);
 
-        UserEntity newUser = userService.get(createdUser.getId()).get();
+        UserEntity newUser = userService.get(createdUser.getId());
 
         assertThat(newUser.getId())
                 .isEqualTo(user.getId());
@@ -123,7 +119,7 @@ public class UserServiceTest {
 
         UserEntity updatedUser = userService.update( createdUser );
 
-        UserEntity newUser = userService.get(updatedUser.getId()).get();
+        UserEntity newUser = userService.get(updatedUser.getId());
 
         assertThat(newUser.getId())
                 .isEqualTo(updatedUser.getId());
