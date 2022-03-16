@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -15,7 +17,7 @@ public class ProductEntity extends AbsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter @Setter Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable(
             name = "products_translations",
             schema = "ecommerce",
@@ -34,17 +36,21 @@ public class ProductEntity extends AbsEntity {
     private @Getter @Setter
     List<TextEntity> categories;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinTable(
             name = "stores_products",
             schema = "ecommerce",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id")
     )
+    @NotNull
     private @Getter @Setter
-    List<StoreEntity> stores;
+    StoreEntity store;
 
     @Column(name = "price")
-    private @Getter @Setter Number price;
+    @NotNull
+    private @Getter @Setter
+    BigDecimal price;
 
 }

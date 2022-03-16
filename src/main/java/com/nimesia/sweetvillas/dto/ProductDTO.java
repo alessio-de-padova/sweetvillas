@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.Set;
 
 public class ProductDTO extends AbsDTO {
@@ -12,5 +13,6 @@ public class ProductDTO extends AbsDTO {
     private @Getter @Setter Set<TextDTO> names;
     @Valid
     private @Getter @Setter Set<CategoryDTO> categories;
-    private @Getter @Setter Number price;
+    private @Getter @Setter
+    BigDecimal price;
 }
