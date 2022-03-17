@@ -38,7 +38,6 @@ class UserController extends AbsController {
         UserEntity entity = svc.get(id);
         System.out.println(entity);
         UserDTO user = mapper.map(entity);
-        System.out.println(user);
         user.getAccount().setPwd("");
 
         return ResponseEntity
@@ -128,14 +127,7 @@ class UserController extends AbsController {
         }
 
 
-        UserEntity userEntity = mapper.map(user);
-
-        // This is where you set previous data you don't want to change
-        UserEntity prevUser = svc.get( user.getId() );
-        userEntity.getAccount().setPwd( prevUser.getAccount().getPwd());
-        userEntity.setRole(prevUser.getRole());
-
-        UserEntity newUser = svc.update(userEntity);
+        UserEntity newUser = svc.update(mapper.map(user));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

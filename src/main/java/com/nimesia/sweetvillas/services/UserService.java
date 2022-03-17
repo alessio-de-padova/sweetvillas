@@ -32,7 +32,14 @@ public class UserService extends AbsService {
     }
 
     public UserEntity update(UserEntity user) {
+
+        // This is where you set previous data you don't want to change
+        UserEntity prevUser = get( user.getId() );
+        user.getAccount().setPwd( prevUser.getAccount().getPwd());
+        user.setRole(prevUser.getRole());
+
         return repository.save(user);
+
     }
 
     public UserEntity create(UserEntity user) {
