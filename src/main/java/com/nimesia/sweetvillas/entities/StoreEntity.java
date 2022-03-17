@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,7 @@ public class StoreEntity extends AbsEntity {
     List<ProductEntity> products;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @NotNull
     @JoinTable(
             name = "users_stores",
             schema = "ecommerce",

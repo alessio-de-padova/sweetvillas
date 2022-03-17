@@ -1,8 +1,11 @@
 package com.nimesia.sweetvillas.services;
 
+import com.nimesia.sweetvillas.dto.AccountDTO;
+import com.nimesia.sweetvillas.dto.UserDTO;
 import com.nimesia.sweetvillas.entities.AccountEntity;
 import com.nimesia.sweetvillas.entities.RoleEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.mappers.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
     public void get_by_valid_id() {
@@ -38,7 +43,6 @@ public class UserServiceTest {
         UserEntity createdUser = userService.create(user);
 
         UserEntity newUser = userService.get(createdUser.getId());
-
         assertThat(newUser.getId())
                 .isEqualTo(user.getId());
         assertThat(newUser.getName())
@@ -54,31 +58,31 @@ public class UserServiceTest {
         assertThat(newUser.getRole().getName())
                 .isNotEqualTo(user.getRole().getName());
 
-        userService.delete(user.getId());
+        userService.delete(newUser.getId());
     }
 
     @Test
     public void valid_login() {
-        String email = "paziente.provy@gmail.com";
-        String pwd = "Lollo1195!";
-        AccountEntity account = new AccountEntity();
+        String email = "paziente.prova@gmail.com";
+        String pwd = "23234!";
+        AccountDTO account = new AccountDTO();
         account.setEmail(email);
         account.setPwd(pwd);
 
-        UserEntity user = new UserEntity();
+        UserDTO user = new UserDTO();
         user.setName("Paziente");
         user.setSurname("Prova");
         user.setFiscalCode("NGMPFP56E4GL420Z");
         user.setAccount(account);
 
-        UserEntity createdUser = userService.create(user);
+        UserEntity createdUser = userService.create(userMapper.map(user));
 
         UserEntity loginUser = userService.getByEmailAndPassword(email, pwd);
 
         assertThat(createdUser.getAccount().getEmail())
                 .isEqualTo(loginUser.getAccount().getEmail());
 
-        userService.delete(user.getId());
+        userService.delete(createdUser.getId());
 
     }
 
@@ -128,9 +132,8 @@ public class UserServiceTest {
         assertThat(newUser.getSurname())
                 .isEqualTo(newSurname);
         assertThat(newUser.getRole().getId())
-                .isEqualTo(newRoleId);
-        assertThat(newUser.getRole().getName())
-                .isNotEqualTo(newRoleName);
+                .isNotEqualTo(newRoleId);
+
         assertThat(newUser.getAccount().getEmail())
                 .isEqualTo(newEmail);
 

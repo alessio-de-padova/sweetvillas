@@ -1,8 +1,6 @@
 package com.nimesia.sweetvillas.services;
 
-import com.nimesia.sweetvillas.entities.CityEntity;
-import com.nimesia.sweetvillas.entities.ProductEntity;
-import com.nimesia.sweetvillas.entities.StoreEntity;
+import com.nimesia.sweetvillas.entities.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,15 @@ public class StoreServiceTest {
     private StoreService storeService;
     @Autowired
     private CityService cityService;
+    @Autowired
+    private UserService userService;
 
     @Test
     public void create_store() {
+        UserEntity user = createUser();
         StoreEntity store = new StoreEntity();
+
+        store.setUser(user);
 
         String name = "Mercato veneziano";
         String street = "contrada san domenico";
@@ -57,7 +60,11 @@ public class StoreServiceTest {
 
     @Test
     public void update_store() {
+
+        UserEntity user = createUser();
         StoreEntity store = new StoreEntity();
+
+        store.setUser(user);
 
         String name = "Mercato veneziano";
         String street = "contrada san domenico";
@@ -106,14 +113,26 @@ public class StoreServiceTest {
         storeService.delete(newStore.getId());
     }
 
-    @Test
-    public void get_test() {
 
-        StoreEntity newStore = storeService.get(49);
-        System.out.println(newStore);
+    public UserEntity createUser() {
+        AccountEntity account = new AccountEntity();
+        account.setEmail("paziente.provy@gmail.com");
+        account.setPwd("Lollo1195!");
 
+        RoleEntity role = new RoleEntity();
+        role.setId("ADM");
+        role.setName("Scribaldino");
+
+
+        UserEntity user = new UserEntity();
+        user.setName("Paziente");
+        user.setSurname("Prova");
+        user.setFiscalCode("NGMPFP56E4GL420Z");
+        user.setAccount(account);
+        user.setRole(role);
+
+        return userService.create(user);
     }
-
 
 
 }
