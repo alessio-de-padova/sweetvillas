@@ -58,12 +58,7 @@ public class UserEntity extends AbsEntity {
     private @Getter @Setter List<StoreEntity> stores;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_cart",
-            schema = "ecommerce",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
+    @JoinColumn(name = "user_id")
     private @Getter @Setter List<CartProductEntity> cartProducts;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
