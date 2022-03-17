@@ -55,7 +55,7 @@ public class UserEntity extends AbsEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id")
     )
-    private @Getter @Setter List<UserSpecEntity> stores;
+    private @Getter @Setter List<StoreEntity> stores;
 
     @OneToMany(cascade = CascadeType.DETACH)
     @JoinTable(
@@ -64,7 +64,7 @@ public class UserEntity extends AbsEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private @Getter @Setter List<UserSpecEntity> cartProducts;
+    private @Getter @Setter List<ProductEntity> cartProducts;
 
     @OneToMany(cascade = CascadeType.DETACH)
     @JoinTable(
@@ -73,5 +73,5 @@ public class UserEntity extends AbsEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private @Getter @Setter List<UserSpecEntity> orderedProducts;
+    private @Getter @Setter List<ProductEntity> orderedProducts;
 }
