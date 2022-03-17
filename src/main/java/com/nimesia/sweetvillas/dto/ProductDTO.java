@@ -14,5 +14,6 @@ public class ProductDTO extends AbsDTO {
     @Valid
     private @Getter @Setter Set<CategoryDTO> categories;
     private @Getter @Setter BigDecimal price;
+    private @Getter @Setter Integer quantity;
     private @Getter @Setter StoreInfoDTO store;
 }

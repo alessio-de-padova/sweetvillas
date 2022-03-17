@@ -48,7 +48,7 @@ public class UserEntity extends AbsEntity {
     )
     private @Getter @Setter List<UserSpecEntity> specs;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_stores",
             schema = "ecommerce",
@@ -57,16 +57,16 @@ public class UserEntity extends AbsEntity {
     )
     private @Getter @Setter List<StoreEntity> stores;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "users__cart",
+            name = "users_cart",
             schema = "ecommerce",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private @Getter @Setter List<ProductEntity> cartProducts;
+    private @Getter @Setter List<CartProductEntity> cartProducts;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "users_orders",
             schema = "ecommerce",

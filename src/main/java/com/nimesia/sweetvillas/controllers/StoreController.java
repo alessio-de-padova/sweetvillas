@@ -91,10 +91,11 @@ public class StoreController extends AbsController {
         }
 
         StoreEntity storeEntity = mapper.map(store);
+        storeEntity.setUser(requestUser);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(svc.save(storeEntity));
+                .body(mapper.map(svc.save(storeEntity)));
 
     }
 }

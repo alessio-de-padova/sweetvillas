@@ -2,11 +2,8 @@ package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.ProductDTO;
 import com.nimesia.sweetvillas.entities.ProductEntity;
-import com.nimesia.sweetvillas.entities.StoreEntity;
 import com.nimesia.sweetvillas.mappers.ProductMapper;
-import com.nimesia.sweetvillas.mappers.StoreMapper;
 import com.nimesia.sweetvillas.services.ProductService;
-import com.nimesia.sweetvillas.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +54,8 @@ public class ProductController extends AbsController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body( mapper.map(svc.save(productEntity)));
+                .body(mapper.map(svc.save(productEntity)));
 
     }
+
 }

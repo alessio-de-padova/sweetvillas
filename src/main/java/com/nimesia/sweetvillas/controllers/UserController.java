@@ -35,7 +35,10 @@ class UserController extends AbsController {
             @RequestParam(name = "id") String id
     ) {
 
-        UserDTO user = mapper.map(svc.get(id));
+        UserEntity entity = svc.get(id);
+        System.out.println(entity);
+        UserDTO user = mapper.map(entity);
+        System.out.println(user);
         user.getAccount().setPwd("");
 
         return ResponseEntity
