@@ -20,6 +20,4 @@ public class ProductService extends AbsService {
 
     public ProductEntity save(ProductEntity store) { return repository.save(store); }
 
-
-
 }

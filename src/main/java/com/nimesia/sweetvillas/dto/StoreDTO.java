@@ -14,6 +14,7 @@ public class StoreDTO extends AbsDTO {
     private @Getter @Setter List<ProductInfoDTO> products;
     private @Getter @Setter String street;
     private @Getter @Setter Integer postalCode;
+    private @Getter @Setter AccountDTO account;
     @Valid
     private @Getter @Setter CityDTO city;
 }

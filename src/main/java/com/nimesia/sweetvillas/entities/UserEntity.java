@@ -47,4 +47,31 @@ public class UserEntity extends AbsEntity {
             inverseJoinColumns = @JoinColumn(name = "spec_id")
     )
     private @Getter @Setter List<UserSpecEntity> specs;
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "users_stores",
+            schema = "ecommerce",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "store_id")
+    )
+    private @Getter @Setter List<UserSpecEntity> stores;
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "users__cart",
+            schema = "ecommerce",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private @Getter @Setter List<UserSpecEntity> cartProducts;
+
+    @OneToMany(cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "users_orders",
+            schema = "ecommerce",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private @Getter @Setter List<UserSpecEntity> orderedProducts;
 }

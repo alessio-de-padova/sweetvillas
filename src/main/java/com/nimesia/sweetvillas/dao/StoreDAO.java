@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.dao;
 
 import com.nimesia.sweetvillas.interceptors.MainInterceptor;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.entities.StoreEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,31 +13,39 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UserDAO {
+public class StoreDAO {
     private Logger logger = LoggerFactory.getLogger(MainInterceptor.class);
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<UserEntity> search(String str, Integer page, Integer limit) {
+    public List<StoreEntity> search(String str, Integer cityId, Integer page, Integer limit) {
 
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserEntity> query = builder.createQuery(UserEntity.class);
-        Root<UserEntity> root = query.from(UserEntity.class);
-        query.select(root);
+        CriteriaQuery<StoreEntity> query = builder.createQuery(StoreEntity.class);
+        Root<StoreEntity> root = query.from(StoreEntity.class);
 
-        if (str.length() > 0) {
-            Predicate checkName = builder.like(root.get("name"), str);
-            Predicate checkSurname = builder.like(root.get("surname"), str);
-            Predicate checkEmail = builder.like(root.get("account").get("email"), str);
+        List<Predicate> predicates = new ArrayList<Predicate>();
 
-            query.where(
-                    builder.or( checkName, checkSurname, checkEmail)
+        if (cityId != 0) {
+            predicates.add(
+                    builder.equal(root.get("city").get("id"), cityId)
             );
         }
+
+        if (str.length() > 0) {
+            predicates.add(
+                    builder.like(root.get("name"), "%" + str + "%")
+            );
+        }
+
+        query.select(root).where(
+                predicates.toArray(new Predicate[predicates.size()])
+        );
 
         Query q = entityManager.createQuery(query);
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "translations", schema = "crm")
-public class TextEntity {
+public class TextEntity extends AbsEntity {
 
     @Id
     @Column(name = "translation_id")

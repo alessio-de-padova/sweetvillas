@@ -30,6 +30,7 @@ public class ProductEntity extends AbsEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
+            schema = "ecommerce",
             name = "products_categories",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
@@ -52,4 +53,8 @@ public class ProductEntity extends AbsEntity {
     private @Getter @Setter
     BigDecimal price;
 
+    @Column(name = "quantity")
+    @NotNull
+    private @Getter @Setter
+    Integer quantity;
 }

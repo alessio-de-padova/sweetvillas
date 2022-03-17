@@ -1,9 +1,7 @@
 package com.nimesia.sweetvillas.filters;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.nimesia.sweetvillas.config.SecurityConfig;
 import com.nimesia.sweetvillas.providers.JwtProvider;
-import com.nimesia.sweetvillas.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

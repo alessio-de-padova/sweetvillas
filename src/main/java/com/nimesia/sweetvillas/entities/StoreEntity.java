@@ -38,4 +38,14 @@ public class StoreEntity extends AbsEntity {
     private @Getter @Setter
     List<ProductEntity> products;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "users_stores",
+            schema = "ecommerce",
+            joinColumns = @JoinColumn(name = "store_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private @Getter @Setter
+    UserEntity user;
+
 }

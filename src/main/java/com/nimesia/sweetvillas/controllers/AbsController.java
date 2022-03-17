@@ -23,6 +23,8 @@ public class AbsController {
     private AccountService accountService;
     private static final @Getter
     String ADM = "ADM";
+    private static final @Getter
+    String STR = "STR";
 
     public ArrayList<ApiError> validateAccount(
             AccountDTO account
