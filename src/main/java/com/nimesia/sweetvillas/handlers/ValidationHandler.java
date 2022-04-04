@@ -1,4 +1,4 @@
-package com.nimesia.sweetvillas.controllers;
+package com.nimesia.sweetvillas.handlers;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,6 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
             apiError.setInvalidValue(apiError.getInvalidValue());
             errors.add(apiError);
         });
-        return new ResponseEntity<Object>(errors, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }
 }

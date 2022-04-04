@@ -24,7 +24,7 @@ public class UserService extends AbsService {
     public UserEntity get(String id) {
 
         return repository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("Not found"));
+                .orElseThrow(() -> new IllegalStateException("NotFound"));
     }
 
     public List<UserEntity> search(String str, Integer page, Integer limit) {

@@ -18,11 +18,18 @@ public class CartProductService extends AbsService {
     @Autowired
     private ProductService productService;
 
-
     public CartProductEntity save(CartProductEntity cartProduct) {
         ProductEntity product = productService.get(cartProduct.getProduct().getId());
+        if (product.getQuantity() < cartProduct.getQuantity()) {
+                throw new IllegalStateException("QuantityInvalid");
+        }
         cartProduct.setTotalPrice( product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity() )) );
-        return repository.save(cartProduct);
+        CartProductEntity newCartProduct = repository.save(cartProduct);
+
+        product.setQuantity( product.getQuantity() - newCartProduct.getQuantity());
+        productService.save(product);
+
+        return newCartProduct;
     }
 
 }

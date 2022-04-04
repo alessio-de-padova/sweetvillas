@@ -29,6 +29,7 @@ public class ProductServiceTest {
 
         ProductEntity product = new ProductEntity();
         BigDecimal price = new BigDecimal("12.34");
+        Integer quantity = 23;
 
         List<TextEntity> texts = new ArrayList<>();
 
@@ -56,6 +57,7 @@ public class ProductServiceTest {
         product.setNames(texts);
         product.setPrice(price);
         product.setStore(store);
+        product.setQuantity(quantity);
 
         ProductEntity createdProduct = productService.save(product);
         ProductEntity newProduct = productService.get(createdProduct.getId());
@@ -64,7 +66,8 @@ public class ProductServiceTest {
                 .isEqualTo(product.getId());
         assertThat(newProduct.getPrice())
                 .isEqualTo(product.getPrice());
-
+        assertThat(newProduct.getQuantity())
+                .isEqualTo(product.getQuantity());
         assertThat(newProduct.getStore().getId())
                 .isEqualTo(store.getId());
         assertThat(newProduct.getStore().getStreet())
@@ -77,6 +80,8 @@ public class ProductServiceTest {
 
     private StoreEntity createStore() {
         StoreEntity store = new StoreEntity();
+        UserEntity user = new UserEntity();
+        user.setId("d90aa567-edf6-1fd0-b30f-dc10b31fe793");
 
         String name = "Prodotti veneziani";
         String street = "contrada san domenico";
@@ -88,6 +93,7 @@ public class ProductServiceTest {
         store.setStreet(street);
         store.setPostalCode(postalCode);
         store.setCity(city);
+        store.setUser(user);
 
         return storeService.save(store);
 
