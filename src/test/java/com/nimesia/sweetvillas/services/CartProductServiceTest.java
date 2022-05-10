@@ -55,5 +55,7 @@ public class CartProductServiceTest {
         assertThat(newProduct.getQuantity())
                 .isEqualTo(product.getQuantity() - cartProduct.getQuantity() );
 
+        CartProductEntity CartProduct2 = cartProductService.save(cartProduct);
+
     }
 }

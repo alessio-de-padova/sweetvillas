@@ -2,6 +2,7 @@ package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.ProductDTO;
 import com.nimesia.sweetvillas.entities.ProductEntity;
+import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.mappers.ProductMapper;
 import com.nimesia.sweetvillas.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,17 @@ public class ProductController extends AbsController {
             @Valid @RequestBody ProductDTO product
     ) {
 
-        ProductEntity productEntity = mapper.map(product);
+        if ( !getRequestUser().getRole().getId().equals( getSTR() ) ) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Cannot create product");
+        }
 
+        ProductEntity productEntity = mapper.map(product);
+        ProductDTO productDTO = mapper.map(svc.save(productEntity));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(mapper.map(svc.save(productEntity)));
+                .body( productDTO.getId() );
 
     }
 

@@ -91,7 +91,6 @@ class UserController extends AbsController {
         }
 
         UserEntity userEntity = mapper.map(user);
-
         UserEntity newUser = svc.create(userEntity);
 
         return ResponseEntity
@@ -125,7 +124,6 @@ class UserController extends AbsController {
                     .status(HttpStatus.BAD_REQUEST)
                     .body(errors);
         }
-
 
         UserEntity newUser = svc.update(mapper.map(user));
 

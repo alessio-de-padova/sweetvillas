@@ -66,7 +66,6 @@ public class StoreController extends AbsController {
                 .map(entity -> mapper.map(entity))
                 .collect(Collectors.toList());
 
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(stores);
@@ -83,7 +82,6 @@ public class StoreController extends AbsController {
             @Valid @RequestBody StoreDTO store
     ) {
         UserEntity requestUser = getRequestUser();
-
         if ( !requestUser.getRole().getId().equals( getSTR() ) ) {
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
@@ -92,10 +90,11 @@ public class StoreController extends AbsController {
 
         StoreEntity storeEntity = mapper.map(store);
         storeEntity.setUser(requestUser);
+        StoreDTO storeDTO = mapper.map(svc.save(storeEntity));
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(mapper.map(svc.save(storeEntity)));
+                .body( storeDTO.getId() );
 
     }
 }

@@ -4,7 +4,6 @@ import com.nimesia.sweetvillas.dto.CartProductDTO;
 import com.nimesia.sweetvillas.entities.CartProductEntity;
 import com.nimesia.sweetvillas.entities.UserEntity;
 import com.nimesia.sweetvillas.mappers.CartProductMapper;
-import com.nimesia.sweetvillas.mappers.ProductMapper;
 import com.nimesia.sweetvillas.services.CartProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
