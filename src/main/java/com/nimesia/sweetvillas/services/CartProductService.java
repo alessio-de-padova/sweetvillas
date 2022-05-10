@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Service
@@ -18,7 +19,7 @@ public class CartProductService extends AbsService {
     @Autowired
     private ProductService productService;
 
-    public CartProductEntity save(CartProductEntity cartProduct) {
+    public CartProductEntity save(@NotNull  CartProductEntity cartProduct) {
         ProductEntity product = productService.get(cartProduct.getProduct().getId());
         if (product.getQuantity() < cartProduct.getQuantity()) {
                 throw new IllegalStateException("QuantityInvalid");
