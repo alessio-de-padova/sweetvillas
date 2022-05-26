@@ -1,8 +1,6 @@
 package com.nimesia.sweetvillas.dao;
 
-import com.nimesia.sweetvillas.entities.AccountEntity;
-import com.nimesia.sweetvillas.entities.UserEntity;
-import org.apache.catalina.User;
+import com.nimesia.sweetvillas.models.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

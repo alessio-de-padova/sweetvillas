@@ -1,8 +1,7 @@
 package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.ProductDTO;
-import com.nimesia.sweetvillas.entities.ProductEntity;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.models.ProductEntity;
 import com.nimesia.sweetvillas.mappers.ProductMapper;
 import com.nimesia.sweetvillas.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

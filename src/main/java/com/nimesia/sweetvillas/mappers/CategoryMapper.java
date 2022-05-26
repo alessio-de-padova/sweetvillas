@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.mappers;
 
 import com.nimesia.sweetvillas.dto.CategoryDTO;
-import com.nimesia.sweetvillas.entities.CategoryEntity;
+import com.nimesia.sweetvillas.models.CategoryEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

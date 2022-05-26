@@ -1,4 +1,4 @@
-package com.nimesia.sweetvillas.entities;
+package com.nimesia.sweetvillas.models;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.SpecDTO;
-import com.nimesia.sweetvillas.entities.SpecEntity;
+import com.nimesia.sweetvillas.models.SpecEntity;
 import com.nimesia.sweetvillas.mappers.SpecMapper;
 import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.SpecService;

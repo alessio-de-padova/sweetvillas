@@ -1,6 +1,6 @@
 package com.nimesia.sweetvillas.services;
 
-import com.nimesia.sweetvillas.entities.CategoryEntity;
+import com.nimesia.sweetvillas.models.CategoryEntity;
 import com.nimesia.sweetvillas.dao.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

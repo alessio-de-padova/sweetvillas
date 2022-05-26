@@ -1,6 +1,6 @@
 package com.nimesia.sweetvillas.dao;
 
-import com.nimesia.sweetvillas.entities.CategoryEntity;
+import com.nimesia.sweetvillas.models.CategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

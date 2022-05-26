@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.dao.CityRepository;
-import com.nimesia.sweetvillas.entities.CityEntity;
+import com.nimesia.sweetvillas.models.CityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

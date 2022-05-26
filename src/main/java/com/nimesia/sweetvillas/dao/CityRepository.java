@@ -1,6 +1,6 @@
 package com.nimesia.sweetvillas.dao;
 
-import com.nimesia.sweetvillas.entities.CityEntity;
+import com.nimesia.sweetvillas.models.CityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

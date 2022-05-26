@@ -1,6 +1,6 @@
 package com.nimesia.sweetvillas.services;
 
-import com.nimesia.sweetvillas.entities.AccountEntity;
+import com.nimesia.sweetvillas.models.AccountEntity;
 import com.nimesia.sweetvillas.dao.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

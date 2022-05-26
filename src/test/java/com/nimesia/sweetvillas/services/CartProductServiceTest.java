@@ -1,13 +1,15 @@
 package com.nimesia.sweetvillas.services;
 
-import com.nimesia.sweetvillas.entities.*;
+import com.nimesia.sweetvillas.models.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -23,6 +25,7 @@ public class CartProductServiceTest {
     private CartProductService cartProductService;
 
     @Test
+    @Transactional
     public void add_product() {
 
         String userId = "d90aa567-edf6-1fd0-b30f-dc10b31fe793";
@@ -31,7 +34,8 @@ public class CartProductServiceTest {
         CartProductEntity cartProduct = new CartProductEntity();
         ProductEntity product = productService.get(productId);
         UserEntity user = userService.get(userId);
-
+        List<CartProductEntity> cartProducts = user.getCartProducts();
+        System.out.println(cartProducts);
         cartProduct.setProduct(product);
         cartProduct.setUser(user);
         cartProduct.setQuantity(1);

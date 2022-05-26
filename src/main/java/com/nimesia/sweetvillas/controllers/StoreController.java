@@ -1,9 +1,8 @@
 package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.StoreDTO;
-import com.nimesia.sweetvillas.dto.UserDTO;
-import com.nimesia.sweetvillas.entities.StoreEntity;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.models.StoreEntity;
+import com.nimesia.sweetvillas.models.UserEntity;
 import com.nimesia.sweetvillas.mappers.StoreMapper;
 import com.nimesia.sweetvillas.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -3,8 +3,8 @@ package com.nimesia.sweetvillas.controllers;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.nimesia.sweetvillas.bean.ApiError;
 import com.nimesia.sweetvillas.dto.AccountDTO;
-import com.nimesia.sweetvillas.entities.AccountEntity;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.models.AccountEntity;
+import com.nimesia.sweetvillas.models.UserEntity;
 import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.UserService;
 import lombok.Getter;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class AbsController {
     @Autowired

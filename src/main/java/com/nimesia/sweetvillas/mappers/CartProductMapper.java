@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.mappers;
 
 import com.nimesia.sweetvillas.dto.CartProductDTO;
-import com.nimesia.sweetvillas.entities.CartProductEntity;
+import com.nimesia.sweetvillas.models.CartProductEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

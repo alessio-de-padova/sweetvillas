@@ -2,8 +2,7 @@ package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.bean.ApiError;
 import com.nimesia.sweetvillas.dto.UserDTO;
-import com.nimesia.sweetvillas.entities.AccountEntity;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.models.UserEntity;
 import com.nimesia.sweetvillas.mappers.UserMapper;
 import com.nimesia.sweetvillas.services.AccountService;
 import com.nimesia.sweetvillas.services.UserService;

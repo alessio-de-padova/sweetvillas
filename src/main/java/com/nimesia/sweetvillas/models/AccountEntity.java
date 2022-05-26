@@ -1,4 +1,4 @@
-package com.nimesia.sweetvillas.entities;
+package com.nimesia.sweetvillas.models;
 
 import com.nimesia.sweetvillas.encryptors.AttributeEncryptor;
 import lombok.Getter;

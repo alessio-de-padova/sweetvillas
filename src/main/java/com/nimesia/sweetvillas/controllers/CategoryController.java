@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.CategoryDTO;
-import com.nimesia.sweetvillas.entities.CategoryEntity;
+import com.nimesia.sweetvillas.models.CategoryEntity;
 import com.nimesia.sweetvillas.mappers.CategoryMapper;
 import com.nimesia.sweetvillas.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

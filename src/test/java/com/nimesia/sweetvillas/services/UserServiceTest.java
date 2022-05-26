@@ -2,9 +2,9 @@ package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.dto.AccountDTO;
 import com.nimesia.sweetvillas.dto.UserDTO;
-import com.nimesia.sweetvillas.entities.AccountEntity;
-import com.nimesia.sweetvillas.entities.RoleEntity;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.models.AccountEntity;
+import com.nimesia.sweetvillas.models.RoleEntity;
+import com.nimesia.sweetvillas.models.UserEntity;
 import com.nimesia.sweetvillas.mappers.UserMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;

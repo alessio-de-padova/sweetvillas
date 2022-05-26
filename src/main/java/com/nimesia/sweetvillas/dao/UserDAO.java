@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.dao;
 
 import com.nimesia.sweetvillas.interceptors.MainInterceptor;
-import com.nimesia.sweetvillas.entities.UserEntity;
+import com.nimesia.sweetvillas.models.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

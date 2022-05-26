@@ -1,7 +1,7 @@
 package com.nimesia.sweetvillas.mappers;
 
 import com.nimesia.sweetvillas.dto.StoreDTO;
-import com.nimesia.sweetvillas.entities.StoreEntity;
+import com.nimesia.sweetvillas.models.StoreEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
