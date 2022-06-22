@@ -24,23 +24,23 @@ public class CartProductService extends AbsService {
         this.repository = repository;
     }
 
+    public CartProductEntity get(@NotNull Integer cartProductId) {
+        return repository.findById(cartProductId).get();
+    }
+
     public CartProductEntity save(@NotNull CartProductEntity cartProduct) {
 
         ProductEntity product = productService.get(cartProduct.getProduct().getId());
+
+        // Restore previous product quantity
+        if (cartProduct.getId() != null) {
+            CartProductEntity prevCartProduct = get(cartProduct.getId());
+            product.setQuantity(product.getQuantity() + prevCartProduct.getQuantity());
+        }
+
         if (product.getQuantity() < cartProduct.getQuantity()) {
             throw new IllegalStateException("QuantityInvalid");
         }
-
-        cartProduct
-                .getUser()
-                .getCartProducts()
-                .stream()
-                .filter(c -> c.getProduct().getId().equals(product.getId()))
-                .findFirst()
-                .ifPresent(c -> {
-                    cartProduct.setQuantity(c.getQuantity() + cartProduct.getQuantity());
-                    cartProduct.setId(c.getId());
-                });
 
         cartProduct.setTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity())));
         CartProductEntity newCartProduct = repository.save(cartProduct);
@@ -49,32 +49,6 @@ public class CartProductService extends AbsService {
         productService.save(product);
 
         return newCartProduct;
-    }
-
-    public void remove(@NotNull CartProductEntity cartProduct) {
-
-        ProductEntity product = productService.get(cartProduct.getProduct().getId());
-
-        cartProduct
-                .getUser()
-                .getCartProducts()
-                .stream()
-                .filter(c -> c.getProduct().getId().equals(product.getId()))
-                .findFirst()
-                .ifPresent(c -> {
-                    cartProduct.setQuantity(c.getQuantity() - cartProduct.getQuantity());
-                });
-
-        if ( !cartProduct.getQuantity().equals(0) ) {
-            cartProduct.setTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity())));
-            repository.save(cartProduct);
-        } else {
-            repository.delete(cartProduct);
-        }
-
-        product.setQuantity(product.getQuantity() + cartProduct.getQuantity());
-        productService.save(product);
-
     }
 
 }

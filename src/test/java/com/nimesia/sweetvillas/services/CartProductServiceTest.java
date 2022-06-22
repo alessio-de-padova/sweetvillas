@@ -34,8 +34,6 @@ public class CartProductServiceTest {
         CartProductEntity cartProduct = new CartProductEntity();
         ProductEntity product = productService.get(productId);
         UserEntity user = userService.get(userId);
-        List<CartProductEntity> cartProducts = user.getCartProducts();
-        System.out.println(cartProducts);
         cartProduct.setProduct(product);
         cartProduct.setUser(user);
         cartProduct.setQuantity(1);
@@ -58,8 +56,6 @@ public class CartProductServiceTest {
 
         assertThat(newProduct.getQuantity())
                 .isEqualTo(product.getQuantity() - cartProduct.getQuantity() );
-
-        CartProductEntity CartProduct2 = cartProductService.save(cartProduct);
 
     }
 }
