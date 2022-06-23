@@ -37,11 +37,7 @@ public class CartProductServiceTest {
         cartProduct.setProduct(product);
         cartProduct.setUser(user);
         cartProduct.setQuantity(1);
-
-        System.out.println(cartProduct);
         CartProductEntity newCartProduct = cartProductService.save(cartProduct);
-
-        System.out.println(newCartProduct);
 
         assertThat(newCartProduct.getQuantity())
                 .isEqualTo(cartProduct.getQuantity());
@@ -52,10 +48,14 @@ public class CartProductServiceTest {
         assertThat(newCartProduct.getTotalPrice())
                 .isEqualTo(product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity())));
 
-        ProductEntity newProduct = productService.get(productId);
+        Integer newQuantity = 23;
 
-        assertThat(newProduct.getQuantity())
-                .isEqualTo(product.getQuantity() - cartProduct.getQuantity() );
+        newCartProduct.setQuantity(newQuantity);
+
+        CartProductEntity updated = cartProductService.save(newCartProduct);
+
+        assertThat(updated.getQuantity())
+                .isEqualTo(newCartProduct.getQuantity());
 
     }
 }

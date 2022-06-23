@@ -25,7 +25,8 @@ public class CartProductService extends AbsService {
     }
 
     public CartProductEntity get(@NotNull Integer cartProductId) {
-        return repository.findById(cartProductId).get();
+        return repository.findById(cartProductId)
+                .orElseThrow(() -> new IllegalStateException("NotFound"));
     }
 
     public CartProductEntity save(@NotNull CartProductEntity cartProduct) {
@@ -49,6 +50,19 @@ public class CartProductService extends AbsService {
         productService.save(product);
 
         return newCartProduct;
+    }
+
+    public void delete(@NotNull Integer cartProductId) {
+
+        CartProductEntity cartProduct = get(cartProductId);
+
+        ProductEntity product = productService.get(cartProduct.getProduct().getId());
+
+        product.setQuantity(product.getQuantity() + cartProduct.getQuantity());
+
+        productService.save(product);
+        repository.delete(cartProduct);
+
     }
 
 }

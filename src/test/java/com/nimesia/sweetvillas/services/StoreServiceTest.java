@@ -1,6 +1,7 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.models.*;
+import com.nimesia.sweetvillas.utils.MockData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class StoreServiceTest {
     private CityService cityService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private MockData mockData;
 
     @Test
     public void create_store() {
-        UserEntity user = createUser();
+        UserEntity user = mockData.createUser();
         StoreEntity store = new StoreEntity();
 
         store.setUser(user);
@@ -61,7 +64,7 @@ public class StoreServiceTest {
     @Test
     public void update_store() {
 
-        UserEntity user = createUser();
+        UserEntity user = mockData.createUser();
         StoreEntity store = new StoreEntity();
 
         store.setUser(user);
@@ -113,26 +116,6 @@ public class StoreServiceTest {
         storeService.delete(newStore.getId());
     }
 
-
-    public UserEntity createUser() {
-        AccountEntity account = new AccountEntity();
-        account.setEmail("paziente.provy@gmail.com");
-        account.setPwd("Lollo1195!");
-
-        RoleEntity role = new RoleEntity();
-        role.setId("ADM");
-        role.setName("Scribaldino");
-
-
-        UserEntity user = new UserEntity();
-        user.setName("Paziente");
-        user.setSurname("Prova");
-        user.setFiscalCode("NGMPFP56E4GL420Z");
-        user.setAccount(account);
-        user.setRole(role);
-
-        return userService.create(user);
-    }
 
 
 }
