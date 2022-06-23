@@ -1,6 +1,7 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.models.*;
+import com.nimesia.sweetvillas.utils.MockData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +24,20 @@ public class CartProductServiceTest {
     private UserService userService;
     @Autowired
     private CartProductService cartProductService;
+    @Autowired
+    private MockData mockData;
 
     @Test
     @Transactional
     public void add_product() {
 
-        String userId = "d90aa567-edf6-1fd0-b30f-dc10b31fe793";
-        Integer productId = 32;
-
         CartProductEntity cartProduct = new CartProductEntity();
-        ProductEntity product = productService.get(productId);
-        UserEntity user = userService.get(userId);
+        ProductEntity product = mockData.createProduct(24);
+        UserEntity user = mockData.createUser();
         cartProduct.setProduct(product);
         cartProduct.setUser(user);
         cartProduct.setQuantity(1);
+
         CartProductEntity newCartProduct = cartProductService.save(cartProduct);
 
         assertThat(newCartProduct.getQuantity())
@@ -48,11 +49,14 @@ public class CartProductServiceTest {
         assertThat(newCartProduct.getTotalPrice())
                 .isEqualTo(product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity())));
 
-        Integer newQuantity = 23;
+        Integer newQuantity = 19;
 
-        newCartProduct.setQuantity(newQuantity);
+        CartProductEntity updateCartProduct = new CartProductEntity();
+        updateCartProduct.setId(newCartProduct.getId());
+        updateCartProduct.setProduct(newCartProduct.getProduct());
+        updateCartProduct.setQuantity(newQuantity);
 
-        CartProductEntity updated = cartProductService.save(newCartProduct);
+        CartProductEntity updated = cartProductService.save(updateCartProduct);
 
         assertThat(updated.getQuantity())
                 .isEqualTo(newCartProduct.getQuantity());

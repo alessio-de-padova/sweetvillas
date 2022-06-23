@@ -26,21 +26,24 @@ public class CartProductService extends AbsService {
 
     public CartProductEntity get(@NotNull Integer cartProductId) {
         return repository.findById(cartProductId)
-                .orElseThrow(() -> new IllegalStateException("NotFound"));
+                .orElseThrow(() -> new IllegalStateException( String.format("No cart product found with id: %s", cartProductId)));
     }
 
     public CartProductEntity save(@NotNull CartProductEntity cartProduct) {
 
         ProductEntity product = productService.get(cartProduct.getProduct().getId());
 
+        if (product.getQuantity() < cartProduct.getQuantity()) {
+            throw new IllegalStateException("QuantityInvalid");
+        }
+
         // Restore previous product quantity
         if (cartProduct.getId() != null) {
             CartProductEntity prevCartProduct = get(cartProduct.getId());
+            System.out.println(product.getQuantity());
+            System.out.println(prevCartProduct.getQuantity());
             product.setQuantity(product.getQuantity() + prevCartProduct.getQuantity());
-        }
-
-        if (product.getQuantity() < cartProduct.getQuantity()) {
-            throw new IllegalStateException("QuantityInvalid");
+            System.out.println(product.getQuantity());
         }
 
         cartProduct.setTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity())));

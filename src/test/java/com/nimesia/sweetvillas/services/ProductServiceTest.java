@@ -1,6 +1,7 @@
 package com.nimesia.sweetvillas.services;
 
 import com.nimesia.sweetvillas.models.*;
+import com.nimesia.sweetvillas.utils.MockData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class ProductServiceTest {
     private CityService cityService;
     @Autowired
     private StoreService storeService;
+    @Autowired
+    private MockData mockData;
 
     @Test
     public void create_product() {
@@ -40,7 +43,7 @@ public class ProductServiceTest {
         LangEntity itLang = new LangEntity();
 
         // Test that store id will be enough
-        StoreEntity store = createStore();
+        StoreEntity store = mockData.createStore();
         store.setId( store.getId() );
 
         enLang.setId("en");
@@ -78,24 +81,5 @@ public class ProductServiceTest {
                 .isEqualTo(store.getName());
     }
 
-    private StoreEntity createStore() {
-        StoreEntity store = new StoreEntity();
-        UserEntity user = new UserEntity();
-        user.setId("d90aa567-edf6-1fd0-b30f-dc10b31fe793");
 
-        String name = "Prodotti veneziani";
-        String street = "contrada san domenico";
-        Integer postalCode = 6234;
-
-        CityEntity city = cityService.get(1);
-
-        store.setName( name );
-        store.setStreet(street);
-        store.setPostalCode(postalCode);
-        store.setCity(city);
-        store.setUser(user);
-
-        return storeService.save(store);
-
-    }
 }
