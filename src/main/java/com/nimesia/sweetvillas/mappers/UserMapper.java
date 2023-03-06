@@ -19,6 +19,9 @@ public class UserMapper implements Mapper<UserDTO, UserEntity>{
 
     @Override
     public UserDTO map(UserEntity entity) {
-        return mapper.map(entity, UserDTO.class);
+
+        UserDTO user = mapper.map(entity, UserDTO.class);
+        user.getAccount().setPwd("");
+        return user;
     }
 }

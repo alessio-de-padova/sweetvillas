@@ -41,7 +41,6 @@ public class UserService extends AbsService {
         return repository.save(user);
 
     }
-
     public UserEntity create(UserEntity user) {
         user.getAccount()
                 .setPwd(passwordEncoder.encode(user.getAccount().getPwd()));

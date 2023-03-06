@@ -40,10 +40,7 @@ public class CartProductService extends AbsService {
         // Restore previous product quantity
         if (cartProduct.getId() != null) {
             CartProductEntity prevCartProduct = get(cartProduct.getId());
-            System.out.println(product.getQuantity());
-            System.out.println(prevCartProduct.getQuantity());
             product.setQuantity(product.getQuantity() + prevCartProduct.getQuantity());
-            System.out.println(product.getQuantity());
         }
 
         cartProduct.setTotalPrice(product.getPrice().multiply(BigDecimal.valueOf(cartProduct.getQuantity())));

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 class UserController extends AbsController {
@@ -29,18 +30,16 @@ class UserController extends AbsController {
      *
      * @param id
      */
-    @GetMapping("/users/get")
+    @GetMapping("/users/{id}")
     public ResponseEntity get(
-            @RequestParam(name = "id") String id
+            @PathVariable(name = "id") String id
     ) {
 
         UserEntity entity = svc.get(id);
-        System.out.println(entity);
         UserDTO user = mapper.map(entity);
-        user.getAccount().setPwd("");
 
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.ACCEPTED)
                 .body(user);
     }
 
@@ -51,23 +50,22 @@ class UserController extends AbsController {
      * @param page
      * @param limit
      */
-    @GetMapping("/users/search")
+    @GetMapping("/users")
     public ResponseEntity search(
             @RequestParam(name = "str", defaultValue = "") String str,
             @RequestParam(name = "page", defaultValue = "0") Integer page,
             @RequestParam(name = "limit", defaultValue = "20") Integer limit
     ) {
 
-        List<UserEntity> userEntities = svc.search(str, page, limit);
-        List<UserDTO> users = new ArrayList<>();
 
-        for (UserEntity entity : userEntities) {
-            entity.getAccount().setPwd("");
-            users.add( mapper.map(entity));
-        }
+        List<UserDTO> users = svc.search(str, page, limit)
+                .stream()
+                .map(entity -> mapper.map(entity))
+                .collect(Collectors.toList());
+
 
         return ResponseEntity
-                .status(HttpStatus.CREATED)
+                .status(HttpStatus.ACCEPTED)
                 .body(users);
     }
 
@@ -76,7 +74,7 @@ class UserController extends AbsController {
      *
      * @param user
      */
-    @PostMapping("/public/users/create")
+    @PostMapping("/public/users")
     @Valid
     public ResponseEntity create(
             @Valid @RequestBody UserDTO user
@@ -102,7 +100,7 @@ class UserController extends AbsController {
      *
      * @param user A user, if not admin, can update only its own info
      */
-    @PostMapping("/users/update")
+    @PutMapping("/users")
     public ResponseEntity update(
             @Valid
             @RequestBody UserDTO user
@@ -118,7 +116,7 @@ class UserController extends AbsController {
 
         List<ApiError> errors = validateEmail(user.getAccount());
 
-        if (errors.size() > 0 ) {
+        if (errors.size() > 0) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(errors);

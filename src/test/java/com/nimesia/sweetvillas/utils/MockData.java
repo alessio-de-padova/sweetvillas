@@ -82,8 +82,7 @@ public class MockData {
 
     public StoreEntity createStore() {
         StoreEntity store = new StoreEntity();
-        UserEntity user = new UserEntity();
-        user.setId("d90aa567-edf6-1fd0-b30f-dc10b31fe793");
+        UserEntity user = userService.search("", 0, 10).get(0);
 
         String name = "Prodotti veneziani";
         String street = "contrada san domenico";

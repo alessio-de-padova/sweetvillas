@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -29,7 +28,7 @@ public class CartProductServiceTest {
 
     @Test
     @Transactional
-    public void add_product() {
+    public void test_add_product() {
 
         CartProductEntity cartProduct = new CartProductEntity();
         ProductEntity product = mockData.createProduct(24);

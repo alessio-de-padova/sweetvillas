@@ -21,9 +21,8 @@ public class UserDTO extends AbsDTO {
     private @Getter @Setter String fiscalCode;
     @Valid
     private @Getter @Setter AccountDTO account;
-    @Valid
-    private @Getter @Setter List<StoreInfoDTO> stores;
+
     private @Getter @Setter RoleDTO role;
     private @Getter @Setter List<UserSpecDTO> specs;
-    private @Getter @Setter List<UserCartProductDTO> cartProducts;
+
 }
