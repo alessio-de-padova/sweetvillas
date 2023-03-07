@@ -1,35 +1,27 @@
 package com.nimesia.sweetvillas.bean;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 public class ApiError implements Serializable {
 
-    private String type;
-    private String propertyPath;
-    private String invalidValue;
+    @Getter
+    private  String type;
+    @Getter
+    private  String propertyPath;
+    @Getter
+    private  String invalidValue;
 
-    public void setInvalidValue(String invalidValue) {
+    public ApiError builder(String type, String propertyPath, String invalidValue) {
         this.invalidValue = invalidValue;
-    }
-
-    public void setType(String type) {
         this.type = type;
-    }
-
-    public void setPropertyPath(String propertyPath) {
         this.propertyPath = propertyPath;
+        return this;
     }
 
-    public String getInvalidValue() {
-        return this.invalidValue;
-    }
 
-    public String getType() {
-        return type;
-    }
 
-    public String getPropertyPath() {
-        return propertyPath;
-    }
 
 }

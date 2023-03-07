@@ -31,17 +31,25 @@ public class AbsController {
         ArrayList<ApiError> errors = validateEmail(account);
 
         if (!account.pdwMatch()) {
-            ApiError error = new ApiError();
-            error.setType("PwdNotMatching");
-            error.setPropertyPath("pwd");
-            errors.add(error);
+            errors.add(
+                    new ApiError()
+                            .builder(
+                                    "PwdNotMatching",
+                                    "pwd",
+                                    null
+                            )
+            );
         }
 
         if (!account.isPwdValid()) {
-            ApiError error = new ApiError();
-            error.setType("PwdNotValid");
-            error.setPropertyPath("pwd");
-            errors.add(error);
+            errors.add(
+                    new ApiError()
+                            .builder(
+                                    "PwdNotValid",
+                                    "pwd",
+                                    null
+                            )
+            );
         }
 
         return errors;
@@ -52,13 +60,17 @@ public class AbsController {
     ) {
         ArrayList<ApiError> errors = new ArrayList<>();
 
-        AccountEntity accountEntity = accountService.getByEmail(account.getEmail());
+        if (accountService.emailExists(account.getEmail(), account.getId())) {
+            errors.add(
+                    new ApiError()
+                            .builder(
+                                    "EmailExists",
+                                    "email",
+                                    account.getEmail()
+                            )
+            );
 
-        if (accountEntity != null && !accountEntity.getId().equals(account.getId())) {
-            ApiError error = new ApiError();
-            error.setType("EmailExists");
-            error.setPropertyPath("email");
-            errors.add(error);
+
         }
 
         return errors;

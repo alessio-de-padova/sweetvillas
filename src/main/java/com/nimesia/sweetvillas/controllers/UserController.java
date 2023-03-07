@@ -1,6 +1,7 @@
 package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.bean.ApiError;
+import com.nimesia.sweetvillas.dto.AccountDTO;
 import com.nimesia.sweetvillas.dto.UserDTO;
 import com.nimesia.sweetvillas.models.UserEntity;
 import com.nimesia.sweetvillas.mappers.UserMapper;
@@ -24,6 +25,8 @@ class UserController extends AbsController {
     private AccountService accountSvc;
     @Autowired
     private UserMapper mapper;
+    @Autowired
+    private AccountService accountService;
 
     /**
      * Get by id request
@@ -81,6 +84,10 @@ class UserController extends AbsController {
     ) {
         List<ApiError> errors = validateAccount(user.getAccount());
 
+        if (svc.fiscalCodeExists(user.getFiscalCode(), null)) {
+            errors.add(new ApiError().builder("fiscalCodeExists", "fiscalCode", user.getFiscalCode()));
+        }
+
         if (errors.size() > 0) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -116,6 +123,10 @@ class UserController extends AbsController {
 
         List<ApiError> errors = validateEmail(user.getAccount());
 
+        if (svc.fiscalCodeExists(user.getFiscalCode(), user.getId())) {
+            errors.add(new ApiError().builder("FiscalCodeExists", "fiscalCode", user.getFiscalCode()));
+        }
+
         if (errors.size() > 0) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -128,5 +139,8 @@ class UserController extends AbsController {
                 .status(HttpStatus.CREATED)
                 .body(newUser.getId());
     }
+
+
+
 
 }

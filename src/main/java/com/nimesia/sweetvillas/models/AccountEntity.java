@@ -15,7 +15,7 @@ public class AccountEntity extends AbsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter @Setter Integer id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Convert(converter = AttributeEncryptor.class)
     private @Getter @Setter String email;
 

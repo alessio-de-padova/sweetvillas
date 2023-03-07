@@ -41,14 +41,12 @@ class AuthController {
     ) {
         UserEntity user = userService.getByEmailAndPassword(login.getEmail(), login.getPwd());
         if (user == null) {
-            ApiError error = new ApiError();
-            error.setType("InvalidLogin");
+            ApiError error = new ApiError().builder("InvalidLogin", null, null);
+
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(error);
         }
-
-        user.getAccount().setPwd("");
 
         String jwt = JwtProvider.createJwt(user, 60800);
         LoginResultDTO dto = new LoginResultDTO();

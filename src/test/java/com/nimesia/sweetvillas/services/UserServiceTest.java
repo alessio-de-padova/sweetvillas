@@ -62,6 +62,35 @@ public class UserServiceTest {
     }
 
     @Test
+    public void fiscal_code_exists() {
+        AccountEntity account = new AccountEntity();
+        account.setEmail("paziente.provy@gmail.com");
+        account.setPwd("Lollo1195!");
+
+        RoleEntity role = new RoleEntity();
+        role.setId("ADM");
+        role.setName("Scribaldino");
+
+        UserEntity user = new UserEntity();
+        user.setName("Paziente");
+        user.setSurname("Prova");
+        user.setFiscalCode("NGMPFP56E4GL420Z");
+        user.setAccount(account);
+        user.setRole(role);
+
+        UserEntity createdUser = userService.create(user);
+
+        assertThat(userService.fiscalCodeExists(createdUser.getFiscalCode(), null))
+                .isEqualTo(true);
+
+        assertThat(userService.fiscalCodeExists(createdUser.getFiscalCode(), createdUser.getId()))
+                .isEqualTo(false);
+
+        userService.delete(createdUser.getId());
+
+    }
+
+    @Test
     public void valid_login() {
         String email = "paziente.prova@gmail.com";
         String pwd = "23234!";

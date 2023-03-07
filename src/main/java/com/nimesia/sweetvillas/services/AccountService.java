@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,14 +19,24 @@ public class AccountService extends AbsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AccountEntity get(Integer id)  {return repository.findById(id);}
+    public AccountEntity get(Integer id)  {return repository.findById(id).get();}
 
-    public AccountEntity getByEmail(String email)  {return repository.findByEmail(email);}
+    public AccountEntity getByEmail(String email)  {return repository.findByEmail(email).get();}
 
-    public Serializable update(AccountEntity account) {
+    public Boolean emailExists(String email, Number id) {
+        Optional<AccountEntity> account = repository.findByEmail(email);
+
+        if ( account.isPresent() ) {
+            return !account.get().getId().equals(id);
+        }
+
+        return false;
+    }
+
+    public Number update(AccountEntity account) {
 
         account.setPwd( passwordEncoder.encode(account.getPwd()) );
-        return repository.save(account);
+        return repository.save(account).getId();
     }
 
 }

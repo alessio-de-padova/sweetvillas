@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -29,6 +30,25 @@ public class UserService extends AbsService {
 
     public List<UserEntity> search(String str, Integer page, Integer limit) {
         return dao.search(str, page, limit);
+    }
+
+    public Boolean fiscalCodeExists(String fiscalCode, String id) {
+        Optional<UserEntity> user =  repository.getByFiscalCode(fiscalCode);
+        if ( user.isPresent() ) {
+            return !user.get().getId().equals(id);
+        }
+
+        return false;
+    }
+
+    public Boolean emailExists(String email, String id) {
+        Optional<UserEntity> user = repository.getByAccountEmail(email);
+
+        if ( user.isPresent() ) {
+            return !user.get().getId().equals(id);
+        }
+
+        return false;
     }
 
     public UserEntity update(UserEntity user) {
@@ -53,10 +73,10 @@ public class UserService extends AbsService {
 
     public UserEntity getByEmailAndPassword(String email, String pwd) {
 
-        UserEntity user = repository.getByAccountEmail(email);
+        Optional<UserEntity> user = repository.getByAccountEmail(email);
 
-        if (user != null && passwordEncoder.matches(pwd, user.getAccount().getPwd())) {
-            return user;
+        if (user.isPresent() && passwordEncoder.matches(pwd, user.get().getAccount().getPwd())) {
+            return user.get();
         }
 
         return null;

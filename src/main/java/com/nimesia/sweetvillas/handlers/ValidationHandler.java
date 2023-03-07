@@ -13,7 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ValidationHandler extends ResponseEntityExceptionHandler{
+public class ValidationHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -21,12 +21,16 @@ public class ValidationHandler extends ResponseEntityExceptionHandler{
                                                                   HttpStatus status,
                                                                   WebRequest request) {
         ArrayList errors = new ArrayList<>();
-        ex.getBindingResult().getAllErrors().forEach((error) ->{
-            ApiError apiError = new ApiError();
-            apiError.setPropertyPath(((FieldError) error).getField());
-            apiError.setType(error.getDefaultMessage());
-            apiError.setInvalidValue(apiError.getInvalidValue());
-            errors.add(apiError);
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+
+            errors.add(
+                    new ApiError()
+                            .builder(
+                                    error.getDefaultMessage(),
+                                    ((FieldError) error).getField(),
+                                    (String) ((FieldError) error).getRejectedValue()
+                            )
+            );
         });
         return new ResponseEntity(errors, HttpStatus.BAD_REQUEST);
     }

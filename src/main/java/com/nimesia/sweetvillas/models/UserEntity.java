@@ -20,7 +20,7 @@ public class UserEntity extends AbsEntity {
     @Convert(converter = AttributeEncryptor.class)
     private @Getter @Setter String name;
 
-    @Column(name = "fiscal_code")
+    @Column(name = "fiscal_code", unique = true)
     @Convert(converter = AttributeEncryptor.class)
     private @Getter @Setter String fiscalCode;
 
@@ -69,4 +69,5 @@ public class UserEntity extends AbsEntity {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private @Getter @Setter List<ProductEntity> orderedProducts;
+
 }
