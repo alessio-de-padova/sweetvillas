@@ -34,6 +34,11 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
+        if (isPublicRoute(request)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String token = null;
 
         if (request.getCookies() != null) {
@@ -55,5 +60,10 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         chain.doFilter(request, response);
+    }
+
+    private Boolean isPublicRoute(HttpServletRequest request) {
+        String path = request.getRequestURI().substring(request.getContextPath().length()).replaceAll("[/]+$", "");
+        return path.startsWith("/public");
     }
 }
