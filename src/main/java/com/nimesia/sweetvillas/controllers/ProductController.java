@@ -16,20 +16,20 @@ import javax.validation.Valid;
 
 @Controller
 public class ProductController extends AbsController {
-
     @Autowired
     private ProductService svc;
     @Autowired
     private ProductMapper mapper;
+
 
     /**
      * Get by id request
      *
      * @param id
      */
-    @GetMapping("/products")
+    @GetMapping("/products/{id}")
     public ResponseEntity<ProductDTO> get(
-            @RequestParam(name = "id") Integer id
+            @PathVariable(name = "id") Integer id
     ) {
         ProductDTO product = mapper.map(svc.get(id));
 
@@ -49,17 +49,18 @@ public class ProductController extends AbsController {
             @Valid @RequestBody ProductDTO product
     ) {
 
-        if ( !getRequestUser().getRole().getId().equals( getSTR() ) ) {
+        if (!getRequestUser().getRole().getId().equals(getSTR())) {
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
                     .body("Cannot create product");
         }
 
         ProductEntity productEntity = mapper.map(product);
+        System.out.println(productEntity);
         ProductDTO productDTO = mapper.map(svc.save(productEntity));
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body( productDTO.getId() );
+                .body(productDTO);
 
     }
 
@@ -67,11 +68,11 @@ public class ProductController extends AbsController {
     @DeleteMapping("/products/{id}")
     @Valid
     public ResponseEntity delete(
-                @PathVariable(name = "id") Integer id
+            @PathVariable(name = "id") Integer id
     ) {
 
         UserEntity user = getRequestUser();
-        if ( !user.getRole().getId().equals( getSTR() ) ) {
+        if (!user.getRole().getId().equals(getSTR())) {
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
                     .body("Cannot create product");
@@ -79,18 +80,17 @@ public class ProductController extends AbsController {
 
         ProductEntity product = svc.get(id);
 
-        if ( !product.getStore().getUser().getId().equals(user.getId())) {
+        if (!product.getStore().getUser().getId().equals(user.getId())) {
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
                     .body("Cannot create product");
         }
 
 
-
         svc.delete(id);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body( true );
+                .body(true);
 
     }
 

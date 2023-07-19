@@ -22,6 +22,6 @@ public class ProductService extends AbsService {
         repository.delete(get(id));
     }
 
-    public ProductEntity save(ProductEntity store) { return repository.save(store); }
+    public ProductEntity save(ProductEntity product) { return repository.save(product); }
 
 }

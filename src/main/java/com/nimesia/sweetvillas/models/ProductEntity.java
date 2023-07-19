@@ -35,7 +35,7 @@ public class ProductEntity extends AbsEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private @Getter @Setter
-    List<TextEntity> categories;
+    List<CategoryEntity> categories;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable(
