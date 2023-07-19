@@ -18,6 +18,10 @@ public class ProductService extends AbsService {
         return repository.findById(id);
     }
 
+    public void delete(Integer id) {
+        repository.delete(get(id));
+    }
+
     public ProductEntity save(ProductEntity store) { return repository.save(store); }
 
 }

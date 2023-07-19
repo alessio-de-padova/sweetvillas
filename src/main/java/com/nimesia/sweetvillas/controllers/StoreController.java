@@ -74,7 +74,7 @@ public class StoreController extends AbsController {
      *
      * @param store
      */
-    @PostMapping("/stores/create")
+    @PostMapping("/stores")
     @Valid
     public ResponseEntity create(
             @Valid @RequestBody StoreDTO store

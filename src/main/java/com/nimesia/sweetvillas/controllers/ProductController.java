@@ -1,17 +1,16 @@
 package com.nimesia.sweetvillas.controllers;
 
 import com.nimesia.sweetvillas.dto.ProductDTO;
+import com.nimesia.sweetvillas.dto.UserDTO;
 import com.nimesia.sweetvillas.models.ProductEntity;
 import com.nimesia.sweetvillas.mappers.ProductMapper;
+import com.nimesia.sweetvillas.models.UserEntity;
 import com.nimesia.sweetvillas.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -28,7 +27,7 @@ public class ProductController extends AbsController {
      *
      * @param id
      */
-    @GetMapping("/products/get")
+    @GetMapping("/products")
     public ResponseEntity<ProductDTO> get(
             @RequestParam(name = "id") Integer id
     ) {
@@ -44,7 +43,7 @@ public class ProductController extends AbsController {
      *
      * @param product
      */
-    @PostMapping("/products/save")
+    @PostMapping("/products")
     @Valid
     public ResponseEntity save(
             @Valid @RequestBody ProductDTO product
@@ -61,6 +60,37 @@ public class ProductController extends AbsController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body( productDTO.getId() );
+
+    }
+
+
+    @DeleteMapping("/products/{id}")
+    @Valid
+    public ResponseEntity delete(
+                @PathVariable(name = "id") Integer id
+    ) {
+
+        UserEntity user = getRequestUser();
+        if ( !user.getRole().getId().equals( getSTR() ) ) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Cannot create product");
+        }
+
+        ProductEntity product = svc.get(id);
+
+        if ( !product.getStore().getUser().getId().equals(user.getId())) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Cannot create product");
+        }
+
+
+
+        svc.delete(id);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body( true );
 
     }
 
