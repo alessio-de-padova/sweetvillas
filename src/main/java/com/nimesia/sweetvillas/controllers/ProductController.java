@@ -56,7 +56,7 @@ public class ProductController extends AbsController {
         }
 
         ProductEntity productEntity = mapper.map(product);
-        System.out.println(productEntity);
+
         ProductDTO productDTO = mapper.map(svc.save(productEntity));
         return ResponseEntity
                 .status(HttpStatus.CREATED)

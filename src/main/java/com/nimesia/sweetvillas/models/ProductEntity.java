@@ -27,7 +27,7 @@ public class ProductEntity extends AbsEntity {
     private @Getter @Setter
     List<TextEntity> names;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinTable(
             schema = "ecommerce",
             name = "products_categories",
