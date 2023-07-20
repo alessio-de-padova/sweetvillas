@@ -39,6 +39,42 @@ public class ProductController extends AbsController {
     }
 
     /**
+     * Update product
+     *
+     * @param product
+     */
+    @PutMapping("/products")
+    @Valid
+    public ResponseEntity update(
+            @Valid @RequestBody ProductDTO product
+    ) {
+
+        if (!getRequestUser().getRole().getId().equals(getSTR())) {
+            return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .body("Cannot create product");
+        }
+
+        ProductEntity prevProduct = svc.get(product.getId());
+
+        ProductEntity productEntity = mapper.map(product);
+
+        if ( productEntity.getCategories() == null ) {
+            productEntity.setCategories(prevProduct.getCategories());
+        }
+
+        if ( productEntity.getStore() == null ) {
+            productEntity.setStore(prevProduct.getStore());
+        }
+
+        ProductDTO productDTO = mapper.map(svc.save(productEntity));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(productDTO);
+
+    }
+
+    /**
      * Create product
      *
      * @param product
@@ -63,7 +99,6 @@ public class ProductController extends AbsController {
                 .body(productDTO);
 
     }
-
 
     @DeleteMapping("/products/{id}")
     @Valid

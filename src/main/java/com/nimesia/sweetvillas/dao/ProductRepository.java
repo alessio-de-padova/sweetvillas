@@ -11,4 +11,5 @@ public interface ProductRepository extends JpaRepository  <ProductEntity, String
     @Query("SELECT p FROM ProductEntity p JOIN FETCH p.store WHERE p.id = (:id)")
     ProductEntity findById(Integer id);
 
+
 }
