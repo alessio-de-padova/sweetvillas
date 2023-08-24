@@ -1,6 +1,8 @@
 # sweetvillas
 RESTFUL API Service with JPA for User Management!
 
-In [create.sql](https://github.com/alessio-de-padova/sweetvillas-ecommerce/blob/main/src/main/resources/create.sql) you can find the ddl to create the database. It will be regularly updated.  
+To instantiate the db, set up an image then:
+docker run -d --name name-of-container  -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=sweetvillas -p 5432:5432 postgres:latest
 
-In order to run it, connect to the database through application.properties and you'll be fine. 
+The [create.sql](https://github.com/alessio-de-padova/sweetvillas-ecommerce/blob/main/src/main/resources/create.sql) will be generated on each run and can be used to create the main tables.
+
