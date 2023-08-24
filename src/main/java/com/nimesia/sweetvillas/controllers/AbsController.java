@@ -70,7 +70,6 @@ public class AbsController {
                             )
             );
 
-
         }
 
         return errors;
@@ -78,6 +77,6 @@ public class AbsController {
 
     public UserEntity getRequestUser() {
         DecodedJWT decoded = (DecodedJWT) context.getAttribute("decoded");
-        return userService.get(decoded.getSubject());
+        return userService.get(decoded.getSubject()).get();
     }
 }

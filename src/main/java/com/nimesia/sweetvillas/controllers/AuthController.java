@@ -40,6 +40,7 @@ class AuthController {
             HttpServletResponse response
     ) {
         UserEntity user = userService.getByEmailAndPassword(login.getEmail(), login.getPwd());
+
         if (user == null) {
             ApiError error = new ApiError().builder("InvalidLogin", null, null);
 

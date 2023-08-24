@@ -22,10 +22,9 @@ public class UserService extends AbsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserEntity get(String id) {
+    public Optional<UserEntity> get(String id) {
 
-        return repository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("NotFound"));
+        return repository.findById(id);
     }
 
     public List<UserEntity> search(String str, Integer page, Integer limit) {
@@ -54,7 +53,8 @@ public class UserService extends AbsService {
     public UserEntity update(UserEntity user) {
 
         // This is where you set previous data you don't want to change
-        UserEntity prevUser = get( user.getId() );
+        UserEntity prevUser = get( user.getId() ).get();
+
         user.getAccount().setPwd( prevUser.getAccount().getPwd());
         user.setRole(prevUser.getRole());
 

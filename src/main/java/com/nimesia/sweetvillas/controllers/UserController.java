@@ -38,13 +38,20 @@ class UserController extends AbsController {
             @PathVariable(name = "id") String id
     ) {
 
-        UserEntity entity = svc.get(id);
-        UserDTO user = mapper.map(entity);
+        Optional<UserEntity> entity = svc.get(id);
+
+        if (entity.isPresent() ) {
+            UserDTO user = mapper.map(entity.get());
+
+            return ResponseEntity
+                    .status(HttpStatus.ACCEPTED)
+                    .body(user);
+        }
 
         return ResponseEntity
-                .status(HttpStatus.ACCEPTED)
-                .body(user);
-    }
+                .status(HttpStatus.BAD_REQUEST)
+                .body(String.format("User %s not available", id ));
+    };
 
     /**
      * Search request

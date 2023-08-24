@@ -42,7 +42,7 @@ public class UserServiceTest {
 
         UserEntity createdUser = userService.create(user);
 
-        UserEntity newUser = userService.get(createdUser.getId());
+        UserEntity newUser = userService.get(createdUser.getId()).get();
         assertThat(newUser.getId())
                 .isEqualTo(user.getId());
         assertThat(newUser.getName())
@@ -152,7 +152,7 @@ public class UserServiceTest {
 
         UserEntity updatedUser = userService.update( createdUser );
 
-        UserEntity newUser = userService.get(updatedUser.getId());
+        UserEntity newUser = userService.get(updatedUser.getId()).get();
 
         assertThat(newUser.getId())
                 .isEqualTo(updatedUser.getId());
