@@ -470,3 +470,163 @@ create sequence hibernate_sequence start 1 increment 1;
        add constraint FKffw2be032gwcrfodb6hswr8dh 
        foreign key (store_id) 
        references ecommerce.stores;
+
+    alter table crm.users_specs 
+       add constraint FK7qvsc4p1qi6hx5a8eb4fuql9u 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.categories_translations 
+       add constraint FKtiocd34bxare1dffuyfrfje0e 
+       foreign key (translation_id) 
+       references crm.translations;
+
+    alter table ecommerce.categories_translations 
+       add constraint FK811cpj5ahrgngxsevcgbvqeax 
+       foreign key (category_id) 
+       references ecommerce.categories;
+
+    alter table ecommerce.products_categories 
+       add constraint FKqt6m2o5dly3luqcm00f5t4h2p 
+       foreign key (category_id) 
+       references ecommerce.categories;
+
+    alter table ecommerce.products_categories 
+       add constraint FKtj1vdea8qwerbjqie4xldl1el 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.products_translations 
+       add constraint FKckn1e460u8nmap2b5rerycfwm 
+       foreign key (translation_id) 
+       references crm.translations;
+
+    alter table ecommerce.products_translations 
+       add constraint FKrb4l1n108cy7ifj53kuvfw0hr 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.stores 
+       add constraint FKoi3i5uaki2wfnk0mjvf4513gb 
+       foreign key (city_id) 
+       references crm.cities;
+
+    alter table ecommerce.stores_products 
+       add constraint FKkr69gr3x80v60hd9d2bmjpbti 
+       foreign key (store_id) 
+       references ecommerce.stores;
+
+    alter table ecommerce.stores_products 
+       add constraint FKnql58gp9lehxhda6tytrv7cc4 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.users_cart 
+       add constraint FK97rl4on9o8349tff3yc7yt8n5 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.users_cart 
+       add constraint FKdn91r1vbqdmcgxrcnwxokfjys 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.users_orders 
+       add constraint FK787nkee14cbw4v063f31e69ro 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.users_orders 
+       add constraint FKms88pdhtsiuuusjpeij73f6df 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.users_stores 
+       add constraint FK41enlc1xt5092gudcwk0sryv3 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.users_stores 
+       add constraint FKffw2be032gwcrfodb6hswr8dh 
+       foreign key (store_id) 
+       references ecommerce.stores;
+
+    alter table crm.users_specs 
+       add constraint FK7qvsc4p1qi6hx5a8eb4fuql9u 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.categories_translations 
+       add constraint FKtiocd34bxare1dffuyfrfje0e 
+       foreign key (translation_id) 
+       references crm.translations;
+
+    alter table ecommerce.categories_translations 
+       add constraint FK811cpj5ahrgngxsevcgbvqeax 
+       foreign key (category_id) 
+       references ecommerce.categories;
+
+    alter table ecommerce.products_categories 
+       add constraint FKqt6m2o5dly3luqcm00f5t4h2p 
+       foreign key (category_id) 
+       references ecommerce.categories;
+
+    alter table ecommerce.products_categories 
+       add constraint FKtj1vdea8qwerbjqie4xldl1el 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.products_translations 
+       add constraint FKckn1e460u8nmap2b5rerycfwm 
+       foreign key (translation_id) 
+       references crm.translations;
+
+    alter table ecommerce.products_translations 
+       add constraint FKrb4l1n108cy7ifj53kuvfw0hr 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.stores 
+       add constraint FKoi3i5uaki2wfnk0mjvf4513gb 
+       foreign key (city_id) 
+       references crm.cities;
+
+    alter table ecommerce.stores_products 
+       add constraint FKkr69gr3x80v60hd9d2bmjpbti 
+       foreign key (store_id) 
+       references ecommerce.stores;
+
+    alter table ecommerce.stores_products 
+       add constraint FKnql58gp9lehxhda6tytrv7cc4 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.users_cart 
+       add constraint FK97rl4on9o8349tff3yc7yt8n5 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.users_cart 
+       add constraint FKdn91r1vbqdmcgxrcnwxokfjys 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.users_orders 
+       add constraint FK787nkee14cbw4v063f31e69ro 
+       foreign key (product_id) 
+       references ecommerce.products;
+
+    alter table ecommerce.users_orders 
+       add constraint FKms88pdhtsiuuusjpeij73f6df 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.users_stores 
+       add constraint FK41enlc1xt5092gudcwk0sryv3 
+       foreign key (user_id) 
+       references crm.users;
+
+    alter table ecommerce.users_stores 
+       add constraint FKffw2be032gwcrfodb6hswr8dh 
+       foreign key (store_id) 
+       references ecommerce.stores;
